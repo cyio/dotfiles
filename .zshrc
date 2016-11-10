@@ -25,4 +25,11 @@ if exists percol; then
     bindkey '^R' percol_select_history
 fi
 
+export PATH=usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/local/jdk/bin:$PATH
+export PATH=$PATH:~/.npm-packages/bin:~/.yarn/bin
+
 # computer config
+export PATH=$PATH:~/d/cyio/android-studio/bin:~/d/cyio/android/sdk/platform-tools
+export ANDROID_HOME=/media/d/cyio/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+
