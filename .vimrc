@@ -32,7 +32,7 @@ set splitright
 let g:indent_guides_enable_on_vim_startup=0
 let g:indent_guides_start_level=2
 let g:indent_guides_guide_size=1
-:nmap <silent> <Leader>i <Plug>IndentGuidesToggle
+":nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 
 " indent lines
 map <leader>il :IndentLinesToggle<CR>
@@ -49,6 +49,7 @@ filetype off  " required!
 call plug#begin('~/.vim/plugged')
 
 " My Plugins here:
+Plug 'vimcn/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'posva/vim-vue'
@@ -155,6 +156,7 @@ set foldmethod=indent
 " 打开文件默认不折叠
 set foldlevelstart=99
 
+" personal hotkey
 " leader
 map <SPACE> <leader>
 
@@ -167,6 +169,12 @@ nnoremap <leader>_ ddkP
 " switch tab
 nnoremap <S-right> :tabn<CR>
 nnoremap <S-left> :tabp<CR>
+
+" node
+noremap <c-e> <Esc>:AsyncRun -save=1 node %<CR>
+
+" open new tab
+nnoremap <leader>t :tabnew<CR>
 
 " insert mode uppercase the current word
 "  <esc> : go to normal mode
