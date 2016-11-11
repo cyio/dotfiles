@@ -2,17 +2,14 @@
 	default = matching
 [core]
 	trustctime = false
-	autocrlf = input
-	excludesfile = /home/oaker/.gitignore_global
+	autocrlf = false
+	excludesfile = ~/.gitignore_global
 	editor = vim
 [user]
 	email = icaner@qq.com
 	name = cyio
 [merge]
-	tool = p4merge
-[mergetool "p4merge"]
-	path = c:/Program Files/Perforce/p4merge.exe
-	trustExitCode = true
+	tool = vimdiff
 [alias]
   a = add
   aa = add --all
@@ -38,6 +35,7 @@
   wc = whatchanged -p --abbrev-commit --pretty=medium
   unstage = reset HEAD --
   edit = !nvim `git ls-files -m`
+  la = config --get-regexp alias
 [branch]
 	autosetuprebase = always
 [credential]
