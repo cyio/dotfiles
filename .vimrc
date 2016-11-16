@@ -176,6 +176,9 @@ noremap <c-e> <Esc>:AsyncRun -save=1 node %<CR>
 " open new tab
 nnoremap <leader>t :tabnew<CR>
 
+" emmet
+imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+
 " insert mode uppercase the current word
 "  <esc> : go to normal mode
 "  v 	 : visual mode
