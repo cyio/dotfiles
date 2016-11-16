@@ -29,7 +29,7 @@ export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/local/
 export PATH=$PATH:~/.npm-packages/bin:~/.yarn/bin
 
 # computer config
-export PATH=$PATH:~/d/cyio/android-studio/bin:~/d/cyio/android/sdk/platform-tools
+export PATH=$PATH:~/d/cyio/android-studio/bin:~/d/cyio/Android/Sdk/platform-tools
 export ANDROID_HOME=/media/d/cyio/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/tools
 
