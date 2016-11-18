@@ -172,7 +172,6 @@ nnoremap <S-left> :tabp<CR>
 "autocmd VimEnter * tab all
 "autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
 
-
 " node
 noremap <leader>e <Esc>:AsyncRun -save=1 node %<CR>
 
