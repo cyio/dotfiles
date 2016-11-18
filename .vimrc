@@ -171,9 +171,8 @@ nnoremap <S-right> :tabn<CR>
 nnoremap <S-left> :tabp<CR>
 
 " open files always in new tabs
-autocmd VimEnter * tab all
-autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
-
+" autocmd VimEnter * tab all
+" autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
 
 " node
 noremap <c-e> <Esc>:AsyncRun -save=1 node %<CR>
