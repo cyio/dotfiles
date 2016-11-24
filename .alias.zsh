@@ -6,7 +6,6 @@ alias z='cd'
 alias pc='percol'
 alias px='proxychains'
 alias hig='history|grep'
-alias open='xdg-open'
 alias goo='proxychains googler -l zh --colors bjdxxy' 
 # alias vim="nvim"
 # mosh
