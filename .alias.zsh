@@ -7,6 +7,7 @@ alias pc='percol'
 alias px='proxychains4'
 alias hig='history|grep'
 alias goo='proxychains googler -l zh --colors bjdxxy' 
+alias typ='/usr/bin/open -a typora'
 # alias vim="nvim"
 # mosh
 alias spc='mosh oaker@192.168.1.143'
