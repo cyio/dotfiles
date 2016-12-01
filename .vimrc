@@ -13,7 +13,7 @@ color mango
 inoremap jk <esc>
 iabbrev cls console.log('')
 " edit my vimrc
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>ev :tabnew $MYVIMRC<cr>
 " source my vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
 let g:hybrid_use_iTerm_colors = 1
@@ -23,10 +23,6 @@ let g:hybrid_use_iTerm_colors = 1
 "highlight RedundantSpaces ctermbg=red guibg=red
 "match RedundantSpaces /\s\+$\| \+\ze\t\|\t/
 set listchars=tab:——,trail:⋅,nbsp:⋅
-
-" 开新窗口方向
-set splitbelow
-set splitright
 
 " indent 默认不显示，按 i 显示
 let g:indent_guides_enable_on_vim_startup=0
@@ -49,6 +45,8 @@ filetype off  " required!
 call plug#begin('~/.vim/plugged')
 
 " My Plugins here:
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'vimcn/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'mzlogin/vim-markdown-toc'
@@ -65,7 +63,7 @@ Plug 'mattn/emmet-vim'
 Plug 'ervandew/supertab'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
-Plug 'majutsushi/tagbar'
+"Plug 'majutsushi/tagbar'
 Plug 'kien/ctrlp.vim'
 Plug 'vim-scripts/xml.vim'
 Plug 'jiangmiao/auto-pairs'
@@ -171,11 +169,11 @@ nnoremap <S-right> :tabn<CR>
 nnoremap <S-left> :tabp<CR>
 
 " open files always in new tabs
-" autocmd VimEnter * tab all
-" autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
+"autocmd VimEnter * tab all
+"autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
 
 " node
-noremap <c-e> <Esc>:AsyncRun -save=1 node %<CR>
+noremap <leader>e <Esc>:AsyncRun -save=1 node %<CR>
 
 " open new tab
 nnoremap <leader>t :tabnew<CR>
@@ -319,23 +317,6 @@ nmap w] :vertical resize +3<CR>
 
 nmap w- :resize -3<CR>
 nmap w= :resize +3<CR>
-
-"markdown hightlight
-let g:octopress_rake_executable = '/usr/bin/rake'
-
-"scss,sass
-au BufRead,BufNewFile *.scss set filetype=scss
-au BufRead,BufNewFile *.sass set filetype=scss
-
-"coffee script
-au BufWritePost *.coffee silent CoffeeMake!
-au BufWritePost *.coffee :CoffeeCompile watch vert
-
-"let skim use slim syntax
-au BufRead,BufNewFile *.skim set filetype=slim
-
-"ctags
-set tags+=~/gitdb/rails/tags
 
 "auto completed
 " Disable AutoComplPop.
