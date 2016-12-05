@@ -15,8 +15,6 @@ iabbrev cls console.log('')
 nnoremap <leader>ev :tabnew $MYVIMRC<cr>
 " source my vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
-let g:hybrid_use_iTerm_colors = 1
-"colorscheme hybrid
 
 " 高亮多余的空白字符及 Tab
 "highlight RedundantSpaces ctermbg=red guibg=red
@@ -99,8 +97,11 @@ Plug 'irrationalistic/vim-tasks'
 call plug#end()
 filetype plugin indent on     " required!
  " End of plug configuration
+
 colorscheme PaperColor
 "colorscheme mango
+"let g:hybrid_use_iTerm_colors = 1
+"colorscheme hybrid
  
 "For ack
 "let g:ackprg = 'ag --nogroup --nocolor --column'
