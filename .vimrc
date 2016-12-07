@@ -6,7 +6,6 @@ set autoread
 set nobackup
 set nowritebackup
 set noswapfile
-color mango
 " hardcore mode
 " inoremap <esc> <nop>
 " inoremap <left> <nop>
@@ -100,6 +99,8 @@ Plug 'irrationalistic/vim-tasks'
 call plug#end()
 filetype plugin indent on     " required!
  " End of plug configuration
+colorscheme PaperColor
+"colorscheme mango
  
 "For ack
 "let g:ackprg = 'ag --nogroup --nocolor --column'
@@ -139,13 +140,18 @@ set relativenumber
 set backspace=2
 set backspace=indent,eol,start
 
+"indent
+set smartindent
+set autoindent
+set copyindent
+
 "忽略大小写查找
 set ic
 
 " tab宽度
 set cindent shiftwidth=2
 set autoindent shiftwidth=2
-set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+set tabstop=2 shiftwidth=2 softtabstop=2 expandtab smarttab
 "vim 换行时不切断单词
 set linebreak
 
@@ -171,7 +177,6 @@ nnoremap <S-left> :tabp<CR>
 " open files always in new tabs
 "autocmd VimEnter * tab all
 "autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
-
 
 " node
 noremap <leader>e <Esc>:AsyncRun -save=1 node %<CR>
@@ -213,6 +218,9 @@ map <leader>tn :tabnew<cr>
 map <leader>te :tabedit
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
 
 "  映射NERDTree插件
 :map <leader>n :NERDTree<CR>
