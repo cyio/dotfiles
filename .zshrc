@@ -5,6 +5,7 @@ ZSH_THEME="robbyrussell"
 DISABLE_LS_COLORS="true"
 plugins=(git tmux git-flow-completion autojump ssh-agent)
 DISABLE_AUTO_UPDATE="true"
+export TERM="xterm-256color"
 source $ZSH/oh-my-zsh.sh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
