@@ -220,6 +220,9 @@ map <leader>te :tabedit
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
 "  映射NERDTree插件
 :map <leader>n :NERDTree<CR>
 "let loaded_nerd_tree=1
