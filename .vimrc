@@ -49,7 +49,7 @@ Plug 'honza/vim-snippets'
 Plug 'vimcn/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'mzlogin/vim-markdown-toc'
-Plug 'posva/vim-vue'
+Plug 'xream/vim-vue'
 Plug 'ajh17/VimCompletesMe'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
@@ -377,3 +377,24 @@ if executable(local_eslint)
     let g:syntastic_vue_eslint_exec = local_eslint
 endif
 
+" comment depending on the region of the .vue file
+let g:ft = ''
+fu! NERDCommenter_before()
+  if &ft == 'vue'
+    let g:ft = 'vue'
+    let stack = synstack(line('.'), col('.'))
+    if len(stack) > 0
+      let syn = synIDattr((stack)[0], 'name')
+      if len(syn) > 0
+        let syn = tolower(syn)
+        exe 'setf '.syn
+      endif
+    endif
+  endif
+endfu
+fu! NERDCommenter_after()
+  if g:ft == 'vue'
+    setf vue
+    g:ft
+  endif
+endfu
