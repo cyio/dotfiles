@@ -34,3 +34,6 @@ export PATH=$PATH:~/d/cyio/android-studio/bin:~/d/cyio/Android/Sdk/platform-tool
 export ANDROID_HOME=/media/d/cyio/Android/Sdk
 export PATH=$PATH:$ANDROID_HOME/tools
 
+
+# added by travis gem
+[ -f /home/oaker/.travis/travis.sh ] && source /home/oaker/.travis/travis.sh
