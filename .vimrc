@@ -42,6 +42,7 @@ filetype off  " required!
 call plug#begin('~/.vim/plugged')
 
 " My Plugins here:
+Plug 'jremmen/vim-ripgrep'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'vimcn/vimcdoc'
