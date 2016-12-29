@@ -7,6 +7,7 @@ alias pc='percol'
 alias px='proxychains'
 alias hig='history|grep'
 alias goo='proxychains googler -l zh --colors bjdxxy' 
+alias h2j='gpaste-client get 0 | html2jade --bodyless --double --noemptypipe --donotencode | gpaste-client'
 # alias vim="nvim"
 # mosh
 alias spc='mosh oaker@192.168.1.143'
