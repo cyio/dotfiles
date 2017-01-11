@@ -31,6 +31,7 @@ let g:indent_guides_guide_size=1
 map <leader>il :IndentLinesToggle<CR>
 let g:indentLine_char = '┊'
 "let g:indentLine_color_term = 0 
+let g:indentLine_noConcealCursor=""
 
 "文件系统跟编码
 set encoding=utf8
