@@ -33,6 +33,9 @@ let g:indentLine_char = '┊'
 "let g:indentLine_color_term = 0 
 let g:indentLine_noConcealCursor=""
 
+" vim json disable conceal for json 
+let g:vim_json_syntax_conceal = 0
+
 "文件系统跟编码
 set encoding=utf8
 set ffs=unix,mac
