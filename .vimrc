@@ -15,8 +15,6 @@ iabbrev cls console.log('')
 nnoremap <leader>ev :tabnew $MYVIMRC<cr>
 " source my vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
-let g:hybrid_use_iTerm_colors = 1
-"colorscheme hybrid
 
 " 高亮多余的空白字符及 Tab
 "highlight RedundantSpaces ctermbg=red guibg=red
@@ -33,6 +31,10 @@ let g:indent_guides_guide_size=1
 map <leader>il :IndentLinesToggle<CR>
 let g:indentLine_char = '┊'
 "let g:indentLine_color_term = 0 
+let g:indentLine_noConcealCursor=""
+
+" vim json disable conceal for json 
+let g:vim_json_syntax_conceal = 0
 
 "文件系统跟编码
 set encoding=utf8
@@ -44,6 +46,7 @@ filetype off  " required!
 call plug#begin('~/.vim/plugged')
 
 " My Plugins here:
+Plug 'jremmen/vim-ripgrep'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'vimcn/vimcdoc'
@@ -99,8 +102,11 @@ Plug 'irrationalistic/vim-tasks'
 call plug#end()
 filetype plugin indent on     " required!
  " End of plug configuration
+
 colorscheme PaperColor
 "colorscheme mango
+"let g:hybrid_use_iTerm_colors = 1
+"colorscheme hybrid
  
 "For ack
 "let g:ackprg = 'ag --nogroup --nocolor --column'
