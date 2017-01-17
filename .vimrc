@@ -47,7 +47,6 @@ call plug#begin('~/.vim/plugged')
 
 " My Plugins here:
 Plug 'jremmen/vim-ripgrep'
-Plug 'honza/vim-snippets'
 Plug 'vimcn/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'mzlogin/vim-markdown-toc'
@@ -191,7 +190,7 @@ noremap <leader>e <Esc>:AsyncRun -save=1 node %<CR>
 let g:used_javascript_libs = 'jquery, underscore, vue'
 
 " utilsnips
-let g:UltiSnipsExpandTrigger="<leader>w"
+let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
