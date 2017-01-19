@@ -46,14 +46,17 @@ filetype off  " required!
 call plug#begin('~/.vim/plugged')
 
 " My Plugins here:
-Plug 'jremmen/vim-ripgrep'
+" Plug 'jremmen/vim-ripgrep'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'vimcn/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'xream/vim-vue'
 Plug 'ajh17/VimCompletesMe'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
+Plug 'pangloss/vim-javascript'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'lilydjwg/fcitx.vim'
 Plug 'digitaltoad/vim-pug'
@@ -67,7 +70,6 @@ Plug 'kien/ctrlp.vim'
 Plug 'vim-scripts/xml.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'flazz/vim-colorschemes'
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
@@ -89,8 +91,7 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'othree/html5.vim'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'pangloss/vim-javascript'
-Plug 'othree/javascript-libraries-syntax.vim'
+"Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/yajs.vim'
 Plug 'elzr/vim-json'
 "support markdown
@@ -109,11 +110,24 @@ colorscheme PaperColor
  
 "For ack
 "let g:ackprg = 'ag --nogroup --nocolor --column'
-let g:ackprg = 'ag --vimgrep --smart-case'
+if executable("rg")
+  let g:ackprg = 'rg --vimgrep --no-heading'
+  let g:CtrlSpaceGlobCommand = 'rg -g ""'
+elseif executable("ag")
+  let g:ackprg = 'ag --vimgrep --smart-case'
+  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+endif
 cnoreabbrev ag Ack
 cnoreabbrev aG Ack
 cnoreabbrev Ag Ack
 cnoreabbrev AG Ack
+cnoreabbrev rg Ack
+cnoreabbrev rG Ack
+cnoreabbrev Rg Ack
+cnoreabbrev RG Ack
+
+" grep ignore
+set wildignore+=*/.git/*,*/tmp/*,*.swp
 
 "improve autocomplete menu color
 "highlight Pmenu ctermbg=238 gui=bold
@@ -185,14 +199,6 @@ nnoremap <S-left> :tabp<CR>
 
 " node
 noremap <leader>e <Esc>:AsyncRun -save=1 node %<CR>
-
-" javascript
-let g:used_javascript_libs = 'jquery, underscore, vue'
-
-" utilsnips
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " open new tab
 nnoremap <leader>t :tabnew<CR>
@@ -347,7 +353,7 @@ let g:acp_enableAtStartup = 0
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
