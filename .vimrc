@@ -46,7 +46,7 @@ filetype off  " required!
 call plug#begin('~/.vim/plugged')
 
 " My Plugins here:
-Plug 'jremmen/vim-ripgrep'
+" Plug 'jremmen/vim-ripgrep'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'vimcn/vimcdoc'
@@ -54,8 +54,8 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'xream/vim-vue'
 Plug 'ajh17/VimCompletesMe'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'lilydjwg/fcitx.vim'
@@ -110,11 +110,24 @@ colorscheme PaperColor
  
 "For ack
 "let g:ackprg = 'ag --nogroup --nocolor --column'
-let g:ackprg = 'ag --vimgrep --smart-case'
+if executable("rg")
+  let g:ackprg = 'rg --vimgrep --no-heading'
+  let g:CtrlSpaceGlobCommand = 'rg -g ""'
+elseif executable("ag")
+  let g:ackprg = 'ag --vimgrep --smart-case'
+  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+endif
 cnoreabbrev ag Ack
 cnoreabbrev aG Ack
 cnoreabbrev Ag Ack
 cnoreabbrev AG Ack
+cnoreabbrev rg Ack
+cnoreabbrev rG Ack
+cnoreabbrev Rg Ack
+cnoreabbrev RG Ack
+
+" grep ignore
+set wildignore+=*/.git/*,*/tmp/*,*.swp
 
 "improve autocomplete menu color
 "highlight Pmenu ctermbg=238 gui=bold
