@@ -16,6 +16,18 @@ nnoremap <leader>ev :tabnew $MYVIMRC<cr>
 " source my vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+" sudo
+cmap w!! %!sudo tee > /dev/null % 
+" save
+" nnoremap <leader>w :w<CR>
+" copy paste
+nmap <Leader>p :set paste<CR>"+]p:set nopaste<CR>
+nmap <Leader>P :set paste<CR>"+]P:set nopaste<CR>
+vmap <Leader>y "+y
+vmap <Leader>Y "+Y
+" Open snippet directory with CtrlP
+" nnoremap <leader>so :CtrlP <path to snippets><cr> 
+
 " 高亮多余的空白字符及 Tab
 "highlight RedundantSpaces ctermbg=red guibg=red
 "match RedundantSpaces /\s\+$\| \+\ze\t\|\t/
@@ -46,15 +58,18 @@ filetype off  " required!
 call plug#begin('~/.vim/plugged')
 
 " My Plugins here:
-Plug 'jremmen/vim-ripgrep'
+" Plug 'jremmen/vim-ripgrep'
+Plug 'SirVer/ultisnips'
+Plug 'tpope/vim-unimpaired'
 Plug 'honza/vim-snippets'
 Plug 'vimcn/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'xream/vim-vue'
 Plug 'ajh17/VimCompletesMe'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
+Plug 'pangloss/vim-javascript'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'lilydjwg/fcitx.vim'
 Plug 'digitaltoad/vim-pug'
@@ -96,7 +111,7 @@ Plug 'othree/yajs.vim'
 Plug 'elzr/vim-json'
 "support markdown
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+"Plug 'plasticboy/vim-markdown'
 Plug 'irrationalistic/vim-tasks'
 
 call plug#end()
@@ -110,11 +125,24 @@ colorscheme PaperColor
  
 "For ack
 "let g:ackprg = 'ag --nogroup --nocolor --column'
-let g:ackprg = 'ag --vimgrep --smart-case'
+if executable("rg")
+  let g:ackprg = 'rg --vimgrep --no-heading'
+  let g:CtrlSpaceGlobCommand = 'rg -g ""'
+elseif executable("ag")
+  let g:ackprg = 'ag --vimgrep --smart-case'
+  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+endif
 cnoreabbrev ag Ack
 cnoreabbrev aG Ack
 cnoreabbrev Ag Ack
 cnoreabbrev AG Ack
+cnoreabbrev rg Ack
+cnoreabbrev rG Ack
+cnoreabbrev Rg Ack
+cnoreabbrev RG Ack
+
+" grep ignore
+set wildignore+=*/.git/*,*/tmp/*,*.swp
 
 "improve autocomplete menu color
 "highlight Pmenu ctermbg=238 gui=bold
@@ -191,7 +219,7 @@ noremap <leader>e <Esc>:AsyncRun -save=1 node %<CR>
 let g:used_javascript_libs = 'jquery, underscore, vue'
 
 " utilsnips
-let g:UltiSnipsExpandTrigger="<leader>w"
+let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
