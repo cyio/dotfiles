@@ -16,6 +16,18 @@ nnoremap <leader>ev :tabnew $MYVIMRC<cr>
 " source my vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+" sudo
+cmap w!! %!sudo tee > /dev/null % 
+" save
+" nnoremap <leader>w :w<CR>
+" copy paste
+nmap <Leader>p :set paste<CR>"+]p:set nopaste<CR>
+nmap <Leader>P :set paste<CR>"+]P:set nopaste<CR>
+vmap <Leader>y "+y
+vmap <Leader>Y "+Y
+" Open snippet directory with CtrlP
+" nnoremap <leader>so :CtrlP <path to snippets><cr> 
+
 " 高亮多余的空白字符及 Tab
 "highlight RedundantSpaces ctermbg=red guibg=red
 "match RedundantSpaces /\s\+$\| \+\ze\t\|\t/
@@ -48,6 +60,7 @@ call plug#begin('~/.vim/plugged')
 " My Plugins here:
 " Plug 'jremmen/vim-ripgrep'
 Plug 'SirVer/ultisnips'
+Plug 'tpope/vim-unimpaired'
 Plug 'honza/vim-snippets'
 Plug 'vimcn/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
@@ -96,7 +109,7 @@ Plug 'othree/yajs.vim'
 Plug 'elzr/vim-json'
 "support markdown
 Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
+"Plug 'plasticboy/vim-markdown'
 Plug 'irrationalistic/vim-tasks'
 
 call plug#end()
