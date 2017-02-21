@@ -123,7 +123,7 @@ colorscheme PaperColor
 "let g:hybrid_use_iTerm_colors = 1
 "colorscheme hybrid
  
-"For ack
+"For ack code search
 "let g:ackprg = 'ag --nogroup --nocolor --column'
 if executable("rg")
   let g:ackprg = 'rg --vimgrep --no-heading'
@@ -391,9 +391,6 @@ if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
-" code search
-let g:ackprg = 'ag --nogroup --nocolor --column'
 
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 
