@@ -19,7 +19,7 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 " sudo
 cmap w!! %!sudo tee > /dev/null % 
 " save
-" nnoremap <leader>w :w<CR>
+nnoremap <leader>w :w<CR>
 " copy paste
 nmap <Leader>p :set paste<CR>"+]p:set nopaste<CR>
 nmap <Leader>P :set paste<CR>"+]P:set nopaste<CR>
@@ -121,7 +121,7 @@ colorscheme PaperColor
 "let g:hybrid_use_iTerm_colors = 1
 "colorscheme hybrid
  
-"For ack
+"For ack code search
 "let g:ackprg = 'ag --nogroup --nocolor --column'
 if executable("rg")
   let g:ackprg = 'rg --vimgrep --no-heading'
@@ -297,7 +297,7 @@ let g:tagbar_type_go = {
 \ }
 
 "switch window
-:map <leader>w <C-W>w
+":map <leader>w <C-W>w
 
 "set zen coding
  let g:user_zen_settings = {
@@ -381,9 +381,6 @@ if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-
-" code search
-let g:ackprg = 'ag --nogroup --nocolor --column'
 
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
 
