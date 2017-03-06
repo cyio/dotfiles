@@ -29,4 +29,16 @@ fi
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/local/jdk/bin:$PATH
 export PATH=$PATH:~/.npm-packages/bin:~/.yarn/bin
 
+# history setting
+HISTFILE=~/.histfile
+HISTSIZE=10000
+SAVEHIST=10000
+# 不保留重复的历史记录项
+setopt hist_ignore_all_dups
+# 在命令前添加空格，不将此命令添加到记录文件中
+setopt hist_ignore_space
+setopt hist_fcntl_lock 2>/dev/null
+setopt hist_reduce_blanks
+setopt SHARE_HISTORY
+
 # computer config
