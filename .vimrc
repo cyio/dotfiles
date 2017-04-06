@@ -118,10 +118,6 @@ nmap w] :vertical resize +3<CR>
 nmap w- :resize -3<CR>
 nmap w= :resize +3<CR>
 
-" Insert timestamp
-nnoremap <C-d> "=strftime("%-l:%M%p")<CR>P
-inoremap <C-d> <C-r>=strftime("%-l:%M%p")<CR>
-
 " }}}
 
 " {{{ Search and Completion
