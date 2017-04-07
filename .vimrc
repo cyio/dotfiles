@@ -1,200 +1,35 @@
-" syntax highlighting
-syntax on
-set background=dark
-set t_Co=256
-set autoread
-set nobackup
-set nowritebackup
-set noswapfile
-" hardcore mode
+" vim: fdm=marker foldenable sw=4 ts=4 sts=4
+" "zo" to open folds, "zc" to close, "zn" to disable.
+
+" {{{ Alias and Snippets
+iabbrev cls console.log('')
+
+" Create a new HTML document.
+nnoremap ,html :-1read $HOME/.vim/.skeleton.html<CR>3jwf>a
+" }}}
+
+" {{{ Keymaps
+
+" {{{ hardcore mode
 " inoremap <esc> <nop>
 " inoremap <left> <nop>
 inoremap jk <esc>
-iabbrev cls console.log('')
+" }}}
+
 " edit my vimrc
 nnoremap <leader>ev :tabnew $MYVIMRC<cr>
+
 " source my vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
-" sudo
-cmap w!! %!sudo tee > /dev/null % 
-" save
-nnoremap <leader>w :w<CR>
-" copy paste
-nmap <Leader>p :set paste<CR>"+]p:set nopaste<CR>
-nmap <Leader>P :set paste<CR>"+]P:set nopaste<CR>
-vmap <Leader>y "+y
-vmap <Leader>Y "+Y
-" Open snippet directory with CtrlP
-" nnoremap <leader>so :CtrlP <path to snippets><cr> 
-
-" 高亮多余的空白字符及 Tab
-"highlight RedundantSpaces ctermbg=red guibg=red
-"match RedundantSpaces /\s\+$\| \+\ze\t\|\t/
-set listchars=tab:——,trail:⋅,nbsp:⋅
-
-" indent 默认不显示，按 i 显示
-let g:indent_guides_enable_on_vim_startup=0
-let g:indent_guides_start_level=2
-let g:indent_guides_guide_size=1
-":nmap <silent> <Leader>i <Plug>IndentGuidesToggle
-
-" indent lines
-map <leader>il :IndentLinesToggle<CR>
-let g:indentLine_char = '┊'
-"let g:indentLine_color_term = 0 
-let g:indentLine_noConcealCursor=""
-
-" vim json disable conceal for json 
-let g:vim_json_syntax_conceal = 0
-
-"文件系统跟编码
-set encoding=utf8
-set ffs=unix,mac
-
-" Configuration section of plug
-filetype off  " required!
-
-call plug#begin('~/.vim/plugged')
-
-" My Plugins here:
-" Plug 'jremmen/vim-ripgrep'
-Plug 'SirVer/ultisnips'
-Plug 'tpope/vim-unimpaired'
-Plug 'honza/vim-snippets'
-Plug 'vimcn/vimcdoc'
-Plug 'skywind3000/asyncrun.vim'
-Plug 'mzlogin/vim-markdown-toc'
-Plug 'xream/vim-vue'
-Plug 'ajh17/VimCompletesMe'
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'ConradIrwin/vim-bracketed-paste'
-Plug 'lilydjwg/fcitx.vim'
-Plug 'digitaltoad/vim-pug'
-Plug 'mileszs/ack.vim'
-Plug 'mattn/emmet-vim'
-Plug 'ervandew/supertab'
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
-"Plug 'majutsushi/tagbar'
-Plug 'kien/ctrlp.vim'
-Plug 'vim-scripts/xml.vim'
-Plug 'jiangmiao/auto-pairs'
-Plug 'flazz/vim-colorschemes'
-Plug 'honza/vim-snippets'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-"Plug 'bling/vim-airline'
-"Plug 'Lokaltog/vim-easymotion'
-"Plug 'TimothyYe/vim-tips'
-"Plug 'Shougo/neocomplete'
-Plug 'mhinz/vim-startify'
-Plug 'vim-scripts/wildfire.vim'
-Plug 'Yggdroot/indentLine'
-"Plug 'nathanaelkane/vim-indent-guides'
-"Plug 'yonchu/accelerated-smooth-scroll'
-"Plug 'ianva/vim-youdao-translater'
-Plug 'marijnh/tern_for_vim'
-Plug 'elixir-lang/vim-elixir'
-"Plug 'Valloric/YouCompleteMe'
-Plug 'maksimr/vim-jsbeautify'
-Plug 'othree/html5.vim'
-Plug 'hail2u/vim-css3-syntax'
-"Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'othree/yajs.vim'
-Plug 'elzr/vim-json'
-"support markdown
-Plug 'godlygeek/tabular'
-"Plug 'plasticboy/vim-markdown'
-Plug 'irrationalistic/vim-tasks'
-
-call plug#end()
-filetype plugin indent on     " required!
- " End of plug configuration
-
-colorscheme PaperColor
-"colorscheme mango
-"let g:hybrid_use_iTerm_colors = 1
-"colorscheme hybrid
- 
-"For ack code search
-"let g:ackprg = 'ag --nogroup --nocolor --column'
-if executable("rg")
-  let g:ackprg = 'rg --vimgrep --no-heading'
-  let g:CtrlSpaceGlobCommand = 'rg -g ""'
-elseif executable("ag")
-  let g:ackprg = 'ag --vimgrep --smart-case'
-  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
-endif
-cnoreabbrev ag Ack
-cnoreabbrev aG Ack
-cnoreabbrev Ag Ack
-cnoreabbrev AG Ack
-cnoreabbrev rg Ack
-cnoreabbrev rG Ack
-cnoreabbrev Rg Ack
-cnoreabbrev RG Ack
-
-" grep ignore
-set wildignore+=*/.git/*,*/tmp/*,*.swp
-
-"improve autocomplete menu color
-"highlight Pmenu ctermbg=238 gui=bold
-
-"Setup SuperTab
-let g:SuperTabRetainCompletionType="context"
-
-set bsdir=buffer " 设定文件浏览器目录为当前目录
-"autocmd BufEnter * lcd %:p:h "打开文件时改变path
-" 切换当前环境工作目录为已打开文件所在目录
-map <leader>cd :lcd %:h<CR>
-
-" 设置编码
-set encoding=utf-8
-set nocompatible
-set laststatus=2
-" 设置文件编码
-set fenc=utf-8
-
-" 设置文件编码检测类型及支持格式
-set fencs=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
-
-"显示行号
-set number
-"Show related row numbers
-set relativenumber
-
-"settings for backspace
-set backspace=2
-set backspace=indent,eol,start
-
-"indent
-set smartindent
-set autoindent
-set copyindent
-
-"忽略大小写查找
-set ic
-
-" tab宽度
-set cindent shiftwidth=2
-set autoindent shiftwidth=2
-set tabstop=2 shiftwidth=2 softtabstop=2 expandtab smarttab
-"vim 换行时不切断单词
-set linebreak
-
-" set 折叠
-set foldmethod=indent
-" 打开文件默认不折叠
-set foldlevelstart=99
-
-" personal hotkey
 " leader
 map <SPACE> <leader>
+
+" fix whitespace
+nnoremap <F4> :retab<CR>:%s/\s\+$//e<CR><C-o>
+
+" fix syntax hilighting
+nnoremap <F3> :syn sync fromstart<CR>
 
 " move the current line below
 nnoremap <leader>- ddp
@@ -206,18 +41,22 @@ nnoremap <leader>_ ddkP
 nnoremap <S-right> :tabn<CR>
 nnoremap <S-left> :tabp<CR>
 
-" open files always in new tabs
-" autocmd VimEnter * tab all
-" autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
-
 " node
 noremap <leader>e <Esc>:AsyncRun -save=1 node %<CR>
 
 " open new tab
 nnoremap <leader>t :tabnew<CR>
-
-" emmet
-"imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+" sudo
+cmap w!! %!sudo tee > /dev/null % 
+" save
+nnoremap <leader>w :w<CR>
+" copy paste
+nmap <Leader>p :set paste<CR>"+]p:set nopaste<CR>
+nmap <Leader>P :set paste<CR>"+]P:set nopaste<CR>
+vmap <Leader>y "+y
+vmap <Leader>Y "+Y
+" Open snippet directory with CtrlP
+" nnoremap <leader>so :CtrlP <path to snippets><cr> 
 
 " insert mode uppercase the current word
 "  <esc> : go to normal mode
@@ -251,86 +90,6 @@ map <leader>te :tabedit
 map <leader>tc :tabclose<cr>
 map <leader>tm :tabmove
 
-" Add spaces after comment delimiters by default
-let g:NERDSpaceDelims = 1
-
-"  映射NERDTree插件
-:map <leader>n :NERDTree<CR>
-"let loaded_nerd_tree=1
-let NERDTreeQuitOnOpen = 1
-let NERDChristmasTree=1
-let g:NERDTreeQuitOnOpen = 1
-let g:NERDTreeWinSize = 32
-map <leader>f :NERDTreeToggle<CR>
-
-" Settings for vim-easymotion
-let g:EasyMotion_leader_key = ","
-
-"Settings for TagBar
-map <leader>g :TagbarToggle<CR>
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds' : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin' : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
-
-"switch window
-":map <leader>w <C-W>w
-
-"set zen coding
- let g:user_zen_settings = {
-  \  'php' : {
-  \    'extends' : 'html',
-  \    'filters' : 'c',
-  \  },
-  \  'xml' : {
-  \    'extends' : 'html',
-  \  },
-  \  'haml' : {
-  \    'extends' : 'html',
-  \  },
-  \  'erb' : {
-  \    'extends' : 'html',
-  \  },
-  \}
-"set CtrlP
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$\|.rvm$'
-let g:ctrlp_working_path_mode=0
-let g:ctrlp_match_window_bottom=1
-let g:ctrlp_max_height=15
-let g:ctrlp_match_window_reversed=0
-let g:ctrlp_mruf_max=500
-let g:ctrlp_follow_symlinks=1
-"use in  edit
-imap <C-A> <C-C><c-p>
-
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.jpg,*.png,*.gif,*.jpeg,.DS_Store  " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
-
 " move lines up or down (command - D)
 nmap <D-j> mz:m+<cr>`z
 nmap <D-k> mz:m-2<cr>`z
@@ -359,6 +118,16 @@ nmap w] :vertical resize +3<CR>
 nmap w- :resize -3<CR>
 nmap w= :resize +3<CR>
 
+" }}}
+
+" {{{ Search and Completion
+
+" grep ignore
+set wildignore+=*/.git/*,*/tmp/*,*.swp
+
+"improve autocomplete menu color
+"highlight Pmenu ctermbg=238 gui=bold
+
 "auto completed
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
@@ -366,15 +135,10 @@ let g:acp_enableAtStartup = 0
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
-" tern_for_vim
-let tern_show_signature_in_pum = 1
-let tern_show_argument_hints = 'on_hold'
-autocmd FileType javascript nnoremap <leader>d :TernDef<CR>
-autocmd FileType javascript setlocal omnifunc=tern#Complete
 
 " Enable heavy omni completion.
 if !exists('g:neocomplcache_omni_patterns')
@@ -383,28 +147,65 @@ endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 
 silent! call repeat#set("\<Plug>MyWonderfulMap", v:count)
+" }}}
+"
+" {{{ Plugins and Settings
+" Configuration section of plug
+filetype off  " required!
 
-" For startify
-let g:startify_custom_header = [
-\ 'Hello World!',
-\ '',
-\ '',
-\]
+call plug#begin('~/.vim/plugged')
 
-highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
-"支持vue高亮
-autocmd BufNewFile,BufRead *.vue set filetype=vue
-"vim-vue-syntastic
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_vue_checkers = ['eslint']
-let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
-if matchstr(local_eslint, "^\/\\w") == ''
-    let local_eslint = getcwd() . "/" . local_eslint
-endif
-if executable(local_eslint)
-    let g:syntastic_javascript_eslint_exec = local_eslint
-    let g:syntastic_vue_eslint_exec = local_eslint
-endif
+" My Plugins here:
+" Plug 'jremmen/vim-ripgrep'
+" {{{ ultisnips
+Plug 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" }}}
+Plug 'tpope/vim-unimpaired'
+Plug 'honza/vim-snippets'
+Plug 'vimcn/vimcdoc'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'mzlogin/vim-markdown-toc'
+Plug 'xream/vim-vue'
+Plug 'rhysd/vim-gfm-syntax'
+Plug 'mzlogin/vim-markdown-toc'
+Plug 'ajh17/VimCompletesMe'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
+" {{{ vim-javascrip
+Plug 'pangloss/vim-javascript'
+let g:used_javascript_libs = 'jquery, underscore, vue'
+" }}}
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'lilydjwg/fcitx.vim'
+Plug 'digitaltoad/vim-pug'
+Plug 'mileszs/ack.vim'
+" {{{ emmet
+Plug 'mattn/emmet-vim'
+"imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+" }}}
+" {{{ supertab
+Plug 'ervandew/supertab'
+let g:SuperTabRetainCompletionType="context"
+" }}}
+" {{{ nerdtree
+Plug 'scrooloose/nerdtree'
+"  映射NERDTree插件
+:map <leader>n :NERDTree<CR>
+"let loaded_nerd_tree=1
+let NERDTreeQuitOnOpen = 1
+let NERDChristmasTree=1
+let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeWinSize = 32
+map <leader>f :NERDTreeToggle<CR>
+" }}}
+" {{{ nerdcommenter 
+Plug 'scrooloose/nerdcommenter'
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
 
 " comment depending on the region of the .vue file
 let g:ft = ''
@@ -427,3 +228,240 @@ fu! NERDCommenter_after()
     g:ft
   endif
 endfu
+" }}}
+" {{{ tagbar 
+"Plug 'majutsushi/tagbar'
+
+map <leader>g :TagbarToggle<CR>
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds' : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin' : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
+" }}}
+" {{{ ctrlp
+Plug 'kien/ctrlp.vim'
+
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$\|.rvm$'
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_match_window_bottom=1
+let g:ctrlp_max_height=15
+let g:ctrlp_match_window_reversed=0
+let g:ctrlp_mruf_max=500
+let g:ctrlp_follow_symlinks=1
+" use in  edit
+imap <C-A> <C-C><c-p>
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.jpg,*.png,*.gif,*.jpeg,.DS_Store  " MacOSX/Linux
+let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
+" }}}
+Plug 'vim-scripts/xml.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'flazz/vim-colorschemes'
+Plug 'honza/vim-snippets'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+"Plug 'bling/vim-airline'
+" {{{ easymotion
+"Plug 'Lokaltog/vim-easymotion'
+
+" Settings for vim-easymotion
+let g:EasyMotion_leader_key = ","
+" }}}
+"Plug 'TimothyYe/vim-tips'
+"Plug 'Shougo/neocomplete'
+Plug 'vim-scripts/wildfire.vim'
+" {{{ indent guide
+" Plug 'nathanaelkane/vim-indent-guides'
+" indent 默认不显示，按 i 显示
+let g:indent_guides_enable_on_vim_startup=0
+let g:indent_guides_start_level=2
+let g:indent_guides_guide_size=1
+":nmap <silent> <Leader>i <Plug>IndentGuidesToggle
+" }}}
+" {{{ indentline 
+Plug 'Yggdroot/indentLine'
+map <leader>il :IndentLinesToggle<CR>
+let g:indentLine_char = '┊'
+"let g:indentLine_color_term = 0 
+let g:indentLine_noConcealCursor=""
+" }}}
+"Plug 'yonchu/accelerated-smooth-scroll'
+"Plug 'ianva/vim-youdao-translater'
+" {{{ tern
+" tern_for_vim
+Plug 'marijnh/tern_for_vim'
+
+let tern_show_signature_in_pum = 1
+let tern_show_argument_hints = 'on_hold'
+autocmd FileType javascript nnoremap <leader>d :TernDef<CR>
+autocmd FileType javascript setlocal omnifunc=tern#Complete
+" }}}
+Plug 'elixir-lang/vim-elixir'
+"Plug 'Valloric/YouCompleteMe'
+Plug 'maksimr/vim-jsbeautify'
+Plug 'othree/html5.vim'
+Plug 'hail2u/vim-css3-syntax'
+"Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'othree/yajs.vim'
+" {{{ vim-json
+Plug 'elzr/vim-json'
+
+" vim json disable conceal for json 
+let g:vim_json_syntax_conceal = 0
+" }}}
+"support markdown
+Plug 'godlygeek/tabular'
+"Plug 'plasticboy/vim-markdown'
+Plug 'irrationalistic/vim-tasks'
+
+call plug#end()
+filetype plugin indent on     " required!
+ " End of plug configuration
+
+colorscheme PaperColor
+"colorscheme mango
+"let g:hybrid_use_iTerm_colors = 1
+"colorscheme hybrid
+ 
+"For ack code search
+"let g:ackprg = 'ag --nogroup --nocolor --column'
+if executable("rg")
+  let g:ackprg = 'rg --vimgrep --no-heading'
+  let g:CtrlSpaceGlobCommand = 'rg -g ""'
+elseif executable("ag")
+  let g:ackprg = 'ag --vimgrep --smart-case'
+  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
+endif
+cnoreabbrev ag Ack
+cnoreabbrev aG Ack
+cnoreabbrev Ag Ack
+cnoreabbrev AG Ack
+cnoreabbrev rg Ack
+cnoreabbrev rG Ack
+cnoreabbrev Rg Ack
+cnoreabbrev RG Ack
+
+" }}}
+
+" {{{ File / Explorer
+set bsdir=buffer " 设定文件浏览器目录为当前目录
+"autocmd BufEnter * lcd %:p:h "打开文件时改变path
+" 切换当前环境工作目录为已打开文件所在目录
+map <leader>cd :lcd %:h<CR>
+" open files always in new tabs
+"autocmd VimEnter * tab all
+"autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
+
+" }}}
+"
+" {{{ Encoding / Basic
+
+" 设置编码
+set encoding=utf-8
+set nocompatible
+set laststatus=2
+" 设置文件编码
+set fenc=utf-8
+
+" 设置文件编码检测类型及支持格式
+set fencs=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+
+"显示行号
+set number
+"Show related row numbers
+set relativenumber
+
+"indent
+set smartindent
+set autoindent
+set copyindent
+
+"忽略大小写查找
+set ic
+
+" tab宽度
+set cindent shiftwidth=2
+set autoindent shiftwidth=2
+set tabstop=2 shiftwidth=2 softtabstop=2 expandtab smarttab
+"vim 换行时不切断单词
+set linebreak
+
+" set 折叠
+set foldmethod=indent
+" 打开文件默认不折叠
+set foldlevelstart=99
+
+" 高亮多余的空白字符及 Tab
+"highlight RedundantSpaces ctermbg=red guibg=red
+"match RedundantSpaces /\s\+$\| \+\ze\t\|\t/
+set listchars=tab:——,trail:⋅,nbsp:⋅
+
+"文件系统跟编码
+set encoding=utf8
+set ffs=unix,mac
+
+" For clever completion with the :find command
+set path+=**
+
+" Typing behavior
+set backspace=2
+set backspace=indent,eol,start
+set showmatch
+set wildmode=full
+set wildmenu
+set complete-=i
+" }}}
+
+" {{{ Syntax highlighting
+
+syntax on
+set background=dark
+set t_Co=256
+set autoread
+set nobackup
+set nowritebackup
+set noswapfile
+
+highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
+"支持vue高亮
+autocmd BufNewFile,BufRead *.vue set filetype=vue
+autocmd BufNewFile,BufRead *.wby set filetype=vue
+"vim-vue-syntastic
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_vue_checkers = ['eslint']
+let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
+if matchstr(local_eslint, "^\/\\w") == ''
+    let local_eslint = getcwd() . "/" . local_eslint
+endif
+if executable(local_eslint)
+    let g:syntastic_javascript_eslint_exec = local_eslint
+    let g:syntastic_vue_eslint_exec = local_eslint
+endif
+" }}}

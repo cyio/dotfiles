@@ -1,3 +1,4 @@
+alias termnot='terminal-notifier -message "Done" -title "Done"'
 alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias byt='bytewiser'
 alias dt='date --rfc-3339="date"'
