@@ -169,6 +169,8 @@ Plug 'vimcn/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'xream/vim-vue'
+Plug 'rhysd/vim-gfm-syntax'
+Plug 'mzlogin/vim-markdown-toc'
 Plug 'ajh17/VimCompletesMe'
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf.vim'
@@ -452,6 +454,7 @@ set noswapfile
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 "支持vue高亮
 autocmd BufNewFile,BufRead *.vue set filetype=vue
+autocmd BufNewFile,BufRead *.wby set filetype=vue
 "vim-vue-syntastic
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_vue_checkers = ['eslint']
