@@ -156,15 +156,19 @@ filetype off  " required!
 call plug#begin('~/.vim/plugged')
 
 " My Plugins here:
-" Plug 'jremmen/vim-ripgrep'
+" {{{ react
+Plug 'mxw/vim-jsx'
+let g:jsx_ext_required = 0
+" }}}
 " {{{ ultisnips
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+Plug 'letientai299/vim-react-snippets', { 'branch': 'es6' }
+Plug 'honza/vim-snippets'
 " }}}
 Plug 'tpope/vim-unimpaired'
-Plug 'honza/vim-snippets'
 Plug 'vimcn/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'mzlogin/vim-markdown-toc'
@@ -266,7 +270,10 @@ Plug 'kien/ctrlp.vim'
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$\|.rvm$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\.git$\|\.yardoc\|node_modules\|log\|tmp$',
+  \ 'file': '\.so$\|\.dat$|\.DS_Store$'
+  \ }
 let g:ctrlp_working_path_mode=0
 let g:ctrlp_match_window_bottom=1
 let g:ctrlp_max_height=15
