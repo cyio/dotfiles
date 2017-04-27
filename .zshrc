@@ -44,6 +44,7 @@ setopt SHARE_HISTORY
 # computer config
 export PATH=$PATH:~/d/cyio/android-studio/bin:~/d/cyio/Android/Sdk/platform-tools
 export ANDROID_HOME=/media/d/cyio/Android/Sdk
+export ANDROID_NDK=/ssd/libs/android-ndk-r10e
 export PATH=$PATH:$ANDROID_HOME/tools
 
 # added by travis gem
