@@ -27,7 +27,8 @@ if exists percol; then
 fi
 
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/local/jdk/bin:$PATH
-export PATH=$PATH:~/.npm-packages/bin:~/.yarn/bin
+export PATH=$PATH:$HOMT/.npm-packages/bin
+export PATH="$PATH:$HOME/.yarn/bin:$HOME/.yarn-config/global/node_modules/.bin"
 
 # history setting
 HISTFILE=~/.histfile
@@ -42,3 +43,5 @@ setopt hist_reduce_blanks
 setopt SHARE_HISTORY
 
 # computer config
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

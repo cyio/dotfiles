@@ -43,3 +43,9 @@
 	helper = cache --timeout=604800
 [pull]
 	rebase = true
+[diff]
+  tool = icdiff
+[difftool]
+  prompt = false
+[difftool "icdiff"]
+  cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
