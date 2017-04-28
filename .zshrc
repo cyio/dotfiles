@@ -42,3 +42,7 @@ setopt hist_reduce_blanks
 setopt SHARE_HISTORY
 
 # computer config
+export PATH=$PATH:~/d/cyio/android-studio/bin:~/d/cyio/android/sdk/platform-tools
+export ANDROID_HOME=/media/d/cyio/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+
