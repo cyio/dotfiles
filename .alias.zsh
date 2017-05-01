@@ -13,7 +13,7 @@ alias typ='/usr/bin/open -a typora'
 # mosh
 alias spc='mosh oaker@192.168.1.143'
 alias smb='mosh --ssh="ssh -p 8022" u0_a78@192.168.1.233'
-function gi() { curl -L -ttps://www.gitignore.io/api/$@ ;}
+function gi() { curl -L -s https://www.gitignore.io/api/$@ ;}
 function lazygit() {
   git add .
   git commit -a -m "$1"
