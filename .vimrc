@@ -118,6 +118,9 @@ nmap w] :vertical resize +3<CR>
 nmap w- :resize -3<CR>
 nmap w= :resize +3<CR>
 
+" use in  edit
+imap <C-A> <C-C><c-p>
+
 " }}}
 
 " {{{ Search and Completion
@@ -199,9 +202,8 @@ Plug 'scrooloose/nerdtree'
 "  映射NERDTree插件
 :map <leader>n :NERDTree<CR>
 "let loaded_nerd_tree=1
-let NERDTreeQuitOnOpen = 1
 let NERDChristmasTree=1
-let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeQuitOnOpen = 0
 let g:NERDTreeWinSize = 32
 map <leader>f :NERDTreeToggle<CR>
 " }}}
@@ -280,11 +282,6 @@ let g:ctrlp_max_height=15
 let g:ctrlp_match_window_reversed=0
 let g:ctrlp_mruf_max=500
 let g:ctrlp_follow_symlinks=1
-" use in  edit
-imap <C-A> <C-C><c-p>
-
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.jpg,*.png,*.gif,*.jpeg,.DS_Store  " MacOSX/Linux
-let g:ctrlp_custom_ignore = '\.git$\|\.hg$\|\.svn$'
 " }}}
 Plug 'vim-scripts/xml.vim'
 Plug 'jiangmiao/auto-pairs'

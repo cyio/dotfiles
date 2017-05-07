@@ -8,7 +8,7 @@ curl -Lks https://cdn.rawgit.com/cyio/eb0786308145ef3af61c8fa334114ed4/raw/f309e
 ```
 2. 安装到新机器
 ```
-curl -Lks https://cdn.rawgit.com/cyio/eb0786308145ef3af61c8fa334114ed4/raw/11f0430c3c1be65166ea4ab1ea68f121bd6debcf/dotfiles-install.sh | /bin/bash
+curl -Lks https://gist.githubusercontent.com/cyio/eb0786308145ef3af61c8fa334114ed4/raw/5e8d6b4402da3317ad935655448fa106dc107538/dotfiles-install.sh | /bin/bash
 ```
 
 (注意如果更新了脚本，可能要手动更新地址)
