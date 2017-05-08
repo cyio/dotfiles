@@ -49,3 +49,6 @@ export PATH=$PATH:$ANDROID_HOME/tools
 
 # added by travis gem
 [ -f /home/oaker/.travis/travis.sh ] && source /home/oaker/.travis/travis.sh
+export PATH="$HOME/.linuxbrew/bin:$PATH"
+export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
