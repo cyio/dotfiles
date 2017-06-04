@@ -27,8 +27,7 @@ if exists percol; then
 fi
 
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/local/jdk/bin:$PATH
-export PATH=$PATH:$HOMT/.npm-packages/bin
-export PATH="$PATH:$HOME/.yarn/bin:$HOME/.yarn-config/global/node_modules/.bin"
+export PATH=$PATH:~/.npm-packages/bin:~/.yarn/bin
 
 # history setting
 HISTFILE=~/.histfile
