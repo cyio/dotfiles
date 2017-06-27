@@ -389,6 +389,9 @@ map <leader>cd :lcd %:h<CR>
 "
 " {{{ Encoding / Basic
 
+" for mac
+set clipboard=unnamed
+
 " 设置编码
 set encoding=utf-8
 set nocompatible
