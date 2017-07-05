@@ -42,7 +42,7 @@ nnoremap <S-right> :tabn<CR>
 nnoremap <S-left> :tabp<CR>
 
 " node
-noremap <leader>e <Esc>:AsyncRun -save=1 node %<CR>
+noremap <leader>e <Esc>:AsyncRun -save=1 node --harmony %<CR>
 
 " open new tab
 nnoremap <leader>t :tabnew<CR>
@@ -181,10 +181,6 @@ Plug 'mzlogin/vim-markdown-toc'
 Plug 'ajh17/VimCompletesMe'
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf.vim'
-" {{{ vim-javascrip
-Plug 'pangloss/vim-javascript'
-let g:used_javascript_libs = 'jquery, underscore, vue'
-" }}}
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'lilydjwg/fcitx.vim'
 Plug 'digitaltoad/vim-pug'
@@ -332,7 +328,13 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'maksimr/vim-jsbeautify'
 Plug 'othree/html5.vim'
 Plug 'hail2u/vim-css3-syntax'
-"Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'pangloss/vim-javascript'
+let g:used_javascript_libs = 'jquery, underscore, vue'
+Plug 'mitermayer/vim-prettier', {
+	\ 'do': 'yarn install',
+	\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
+let g:prettier#config#semi = 'false'
+" Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/yajs.vim'
 " {{{ vim-json
 Plug 'elzr/vim-json'
@@ -371,6 +373,11 @@ cnoreabbrev rg Ack
 cnoreabbrev rG Ack
 cnoreabbrev Rg Ack
 cnoreabbrev RG Ack
+
+" language format
+" autocmd FileType javascript set formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5
+" autocmd BufWritePre *.js :normal gggqG
+" autocmd BufWritePre,TextChanged,InsertLeave *.js :normal gggqG
 
 " }}}
 
