@@ -331,6 +331,10 @@ Plug 'othree/html5.vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
 let g:used_javascript_libs = 'jquery, underscore, vue'
+Plug 'mitermayer/vim-prettier', {
+	\ 'do': 'yarn install',
+	\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
+let g:prettier#config#semi = 'false'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/yajs.vim'
 " {{{ vim-json
@@ -372,7 +376,9 @@ cnoreabbrev Rg Ack
 cnoreabbrev RG Ack
 
 " language format
-autocmd FileType javascript set formatprg=prettier\ --stdin
+" autocmd FileType javascript set formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5
+" autocmd BufWritePre *.js :normal gggqG
+" autocmd BufWritePre,TextChanged,InsertLeave *.js :normal gggqG
 
 " }}}
 
