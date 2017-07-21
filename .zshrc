@@ -28,6 +28,10 @@ fi
 
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/local/jdk/bin
 export PATH=$PATH:$HOME/.npm-packages/bin:$HOME/.yarn/bin
+export ANDROID_HOME=/usr/local/share/android-sdk
+export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools:$PATH
+export NDK_HOME=/usr/local/share/android-ndk
+export PATH=$NDK_HOME:$PATH
 
 # history setting
 HISTFILE=~/.histfile
