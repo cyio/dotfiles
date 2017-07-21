@@ -391,6 +391,7 @@ map <leader>cd :lcd %:h<CR>
 "autocmd VimEnter * tab all
 "autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
 
+map <leader>tp :!/usr/bin/open -a typora %<CR>
 " }}}
 "
 " {{{ Encoding / Basic
