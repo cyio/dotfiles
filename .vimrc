@@ -177,7 +177,6 @@ Plug 'honza/vim-snippets'
 Plug 'tpope/vim-unimpaired'
 Plug 'vimcn/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'mzlogin/vim-markdown-toc'
 Plug 'xream/vim-vue'
 Plug 'rhysd/vim-gfm-syntax'
 Plug 'mzlogin/vim-markdown-toc'
@@ -340,6 +339,7 @@ Plug 'mitermayer/vim-prettier', {
 let g:prettier#config#semi = 'false'
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/yajs.vim'
+Plug 'HerringtonDarkholme/yats.vim'
 " {{{ vim-json
 Plug 'elzr/vim-json'
 
