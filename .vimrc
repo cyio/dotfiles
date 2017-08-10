@@ -97,10 +97,10 @@ vmap <D-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <D-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 " Tab move lines left or right (c-Ctrl,s-Shift)
-nmap    <c-tab>     v>
-nmap    <s-tab>     v<
-vmap    <c-tab>     >gv
-vmap    <s-tab>     <gv
+" nmap    <c-tab>     v>
+" nmap    <s-tab>     v<
+" vmap    <c-tab>     >gv
+" vmap    <s-tab>     <gv
 
 " tab navigation like zsh
 :nmap <leader>h :tabprevious<CR>
@@ -165,9 +165,12 @@ let g:jsx_ext_required = 0
 " }}}
 " {{{ ultisnips
 Plug 'SirVer/ultisnips'
+" let g:UltiSnipsSnippetsDir='~/UltiSnips'
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsListSnippets="<c-tab>"
+
 Plug 'letientai299/vim-react-snippets', { 'branch': 'es6' }
 Plug 'honza/vim-snippets'
 " }}}
@@ -347,6 +350,16 @@ let g:vim_json_syntax_conceal = 0
 Plug 'godlygeek/tabular'
 "Plug 'plasticboy/vim-markdown'
 Plug 'irrationalistic/vim-tasks'
+" {{{ zeal
+Plug 'KabbAmine/zeavim.vim', {'on': [
+			\	'Zeavim', 'Docset',
+			\	'<Plug>Zeavim',
+			\	'<Plug>ZVVisSelection',
+			\	'<Plug>ZVKeyDocset',
+			\	'<Plug>ZVMotion'
+			\ ]}
+nmap gZ <Plug>ZVKeyDocset
+" }}}
 
 call plug#end()
 filetype plugin indent on     " required!
