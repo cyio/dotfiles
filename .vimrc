@@ -350,6 +350,18 @@ let g:vim_json_syntax_conceal = 0
 Plug 'godlygeek/tabular'
 "Plug 'plasticboy/vim-markdown'
 Plug 'irrationalistic/vim-tasks'
+" {{{ devdocs.io
+Plug 'rhysd/devdocs.vim'
+nmap K <Plug>(devdocs-under-cursor)
+" :DD
+" :DD Map
+" :DD scss @mixin
+" setlocal keywordprg=:DD
+let url = "open 'http://devdocs.io/?q="
+command! -nargs=* DD silent! call system(len(split(<q-args>, ' ')) == 0 ?
+			\ url . &ft . ' ' . expand('<cword>') . "'" : len(split(<q-args>, ' ')) == 1 ?
+			\ url . &ft . ' ' . <q-args> . "'" : url . <q-args> . "'")
+" }}}
 " {{{ zeal
 Plug 'KabbAmine/zeavim.vim', {'on': [
 			\	'Zeavim', 'Docset',
