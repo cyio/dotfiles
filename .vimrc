@@ -177,7 +177,6 @@ Plug 'honza/vim-snippets'
 Plug 'tpope/vim-unimpaired'
 Plug 'vimcn/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'mzlogin/vim-markdown-toc'
 Plug 'xream/vim-vue'
 Plug 'rhysd/vim-gfm-syntax'
 Plug 'mzlogin/vim-markdown-toc'
@@ -339,6 +338,7 @@ Plug 'mitermayer/vim-prettier', {
 let g:prettier#config#semi = 'false'
 " Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/yajs.vim'
+Plug 'HerringtonDarkholme/yats.vim'
 " {{{ vim-json
 Plug 'elzr/vim-json'
 
@@ -349,6 +349,18 @@ let g:vim_json_syntax_conceal = 0
 Plug 'godlygeek/tabular'
 "Plug 'plasticboy/vim-markdown'
 Plug 'irrationalistic/vim-tasks'
+" {{{ devdocs.io
+Plug 'rhysd/devdocs.vim'
+nmap K <Plug>(devdocs-under-cursor)
+" :DD
+" :DD Map
+" :DD scss @mixin
+" setlocal keywordprg=:DD
+let url = "open 'http://devdocs.io/?q="
+command! -nargs=* DD silent! call system(len(split(<q-args>, ' ')) == 0 ?
+			\ url . &ft . ' ' . expand('<cword>') . "'" : len(split(<q-args>, ' ')) == 1 ?
+			\ url . &ft . ' ' . <q-args> . "'" : url . <q-args> . "'")
+" }}}
 " {{{ zeal
 Plug 'KabbAmine/zeavim.vim', {'on': [
 			\	'Zeavim', 'Docset',
@@ -403,7 +415,16 @@ map <leader>cd :lcd %:h<CR>
 "autocmd VimEnter * tab all
 "autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
 
-map <leader>tp :!/usr/bin/open -a typora %<CR>
+if has('unix')
+  if has('mac')
+    map <leader>tp :!/usr/bin/open -a typora %<CR>
+  else
+    map <leader>tp :!/usr/bin/xdg-open %<CR>
+  endif
+elseif has('win32') || has('win64')
+  " set guifont=...
+endif
+
 " }}}
 "
 " {{{ Encoding / Basic
