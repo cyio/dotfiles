@@ -177,7 +177,7 @@ Plug 'honza/vim-snippets'
 Plug 'tpope/vim-unimpaired'
 Plug 'vimcn/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'xream/vim-vue'
+Plug 'cyio/vim-vue'
 Plug 'rhysd/vim-gfm-syntax'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'ajh17/VimCompletesMe'
@@ -416,7 +416,16 @@ map <leader>cd :lcd %:h<CR>
 "autocmd VimEnter * tab all
 "autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
 
-map <leader>tp :!/usr/bin/open -a typora %<CR>
+if has('unix')
+  if has('mac')
+    map <leader>tp :!/usr/bin/open -a typora %<CR>
+  else
+    map <leader>tp :!/usr/bin/xdg-open %<CR>
+  endif
+elseif has('win32') || has('win64')
+  " set guifont=...
+endif
+
 " }}}
 "
 " {{{ Encoding / Basic
