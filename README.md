@@ -6,15 +6,20 @@
 ```
 curl -Lks https://cdn.rawgit.com/cyio/eb0786308145ef3af61c8fa334114ed4/raw/f309eae1da5f2604525049bfb4a7c23c098ba57e/dotfiles-init.sh | /bin/bash
 ```
+
 2. 安装到新机器
 ```
 curl -Lks https://gist.githubusercontent.com/cyio/eb0786308145ef3af61c8fa334114ed4/raw/5e8d6b4402da3317ad935655448fa106dc107538/dotfiles-install.sh | /bin/bash
+
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 cd ~/.vim
 ln -s ~/UltiSnips ./UltiSnips
 ```
 
 (注意如果更新了脚本，可能要手动更新地址)
+注意查看 worknotes -> dev-setup.md，有很多需要注意的地方
 
 ## 解释
 
