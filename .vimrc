@@ -184,7 +184,9 @@ Plug 'ajh17/VimCompletesMe'
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
-Plug 'lilydjwg/fcitx.vim'
+if !has("macunix")
+    Plug 'lilydjwg/fcitx.vim'
+endif
 Plug 'digitaltoad/vim-pug'
 Plug 'mileszs/ack.vim'
 " {{{ emmet
