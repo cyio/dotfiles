@@ -177,7 +177,7 @@ Plug 'honza/vim-snippets'
 Plug 'tpope/vim-unimpaired'
 Plug 'vimcn/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
-Plug 'cyio/vim-vue'
+" Plug 'cyio/vim-vue'
 Plug 'rhysd/vim-gfm-syntax'
 Plug 'mzlogin/vim-markdown-toc'
 Plug 'ajh17/VimCompletesMe'
@@ -320,12 +320,11 @@ let g:indentLine_noConcealCursor=""
 "Plug 'yonchu/accelerated-smooth-scroll'
 "Plug 'ianva/vim-youdao-translater'
 " {{{ tern
-" tern_for_vim
 Plug 'marijnh/tern_for_vim'
 
 let tern_show_signature_in_pum = 1
+let g:tern_map_keys=1
 let tern_show_argument_hints = 'on_hold'
-autocmd FileType javascript nnoremap <leader>d :TernDef<CR>
 autocmd FileType javascript setlocal omnifunc=tern#Complete
 " }}}
 Plug 'elixir-lang/vim-elixir'
@@ -500,17 +499,6 @@ set noswapfile
 
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 "支持vue高亮
-autocmd BufNewFile,BufRead *.vue set filetype=vue
-autocmd BufNewFile,BufRead *.wpy set filetype=vue
-"vim-vue-syntastic
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_vue_checkers = ['eslint']
-let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
-if matchstr(local_eslint, "^\/\\w") == ''
-    let local_eslint = getcwd() . "/" . local_eslint
-endif
-if executable(local_eslint)
-    let g:syntastic_javascript_eslint_exec = local_eslint
-    let g:syntastic_vue_eslint_exec = local_eslint
-endif
+autocmd BufNewFile,BufRead *.vue set filetype=html
+autocmd BufNewFile,BufRead *.wpy set filetype=html
 " }}}

@@ -16,6 +16,9 @@ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 cd ~/.vim
 ln -s ~/UltiSnips ./UltiSnips
+
+cd ~/.vim/plugged/tern_for_vim
+yarn
 ```
 
 (注意如果更新了脚本，可能要手动更新地址)
