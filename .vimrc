@@ -55,8 +55,6 @@ nmap <Leader>p :set paste<CR>"+]p:set nopaste<CR>
 nmap <Leader>P :set paste<CR>"+]P:set nopaste<CR>
 vmap <Leader>y "+y
 vmap <Leader>Y "+Y
-" Open snippet directory with CtrlP
-" nnoremap <leader>so :CtrlP <path to snippets><cr> 
 
 " insert mode uppercase the current word
 "  <esc> : go to normal mode
@@ -205,7 +203,7 @@ Plug 'scrooloose/nerdtree'
 let NERDChristmasTree=1
 let g:NERDTreeQuitOnOpen = 0
 let g:NERDTreeWinSize = 32
-map <leader>f :NERDTreeToggle<CR>
+" map <leader>f :NERDTreeToggle<CR>
 " }}}
 " {{{ nerdcommenter 
 Plug 'scrooloose/nerdcommenter'
@@ -266,22 +264,6 @@ let g:tagbar_type_go = {
     \ 'ctagsbin' : 'gotags',
     \ 'ctagsargs' : '-sort -silent'
 \ }
-" }}}
-" {{{ ctrlp
-Plug 'kien/ctrlp.vim'
-
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.yardoc\|node_modules\|log\|tmp$',
-  \ 'file': '\.so$\|\.dat$|\.DS_Store$'
-  \ }
-let g:ctrlp_working_path_mode=0
-let g:ctrlp_match_window_bottom=1
-let g:ctrlp_max_height=15
-let g:ctrlp_match_window_reversed=0
-let g:ctrlp_mruf_max=500
-let g:ctrlp_follow_symlinks=1
 " }}}
 Plug 'vim-scripts/xml.vim'
 Plug 'jiangmiao/auto-pairs'
@@ -372,6 +354,10 @@ Plug 'KabbAmine/zeavim.vim', {'on': [
 			\	'<Plug>ZVMotion'
 			\ ]}
 nmap gZ <Plug>ZVKeyDocset
+" }}}
+" {{{ LeaderF
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+let g:Lf_ShortcutF = '<C-P>'
 " }}}
 
 call plug#end()

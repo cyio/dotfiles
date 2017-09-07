@@ -3,6 +3,7 @@ source ~/.alias.zsh
 export ZSH=~/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 DISABLE_LS_COLORS="true"
+eval "$(fasd --init auto)"
 plugins=(git tmux git-flow-completion autojump ssh-agent)
 DISABLE_AUTO_UPDATE="true"
 export TERM="xterm-256color"
@@ -14,16 +15,35 @@ source $ZSH/oh-my-zsh.sh
 function exists { which $1 &> /dev/null }
 
 if exists percol; then
-    function percol_select_history() {
-        local tac
-        exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
-        BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
-        CURSOR=$#BUFFER         # move cursor
-        zle -R -c               # refresh
-    }
+	function percol_select_history() {
+		local tac
+		exists gtac && tac="gtac" || { exists tac && tac="tac" || { tac="tail -r" } }
+		BUFFER=$(fc -l -n 1 | eval $tac | percol --query "$LBUFFER")
+		CURSOR=$#BUFFER         # move cursor
+		zle -R -c               # refresh
+	}
 
-    zle -N percol_select_history
-    bindkey '^R' percol_select_history
+	zle -N percol_select_history
+	bindkey '^R' percol_select_history
+
+	function ppgrep() {
+		if [[ $1 == "" ]]; then
+			PERCOL=percol
+		else
+			PERCOL="percol --query $1"
+		fi
+		ps aux | eval $PERCOL | awk '{ print $2 }'
+	}
+
+	function ppkill() {
+		if [[ $1 =~ "^-" ]]; then
+			QUERY=""            # options only
+		else
+			QUERY=$1            # with a query
+			[[ $# > 0 ]] && shift
+		fi
+		ppgrep $QUERY | xargs kill $*
+	}
 fi
 
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/local/jdk/bin
