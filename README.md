@@ -36,6 +36,11 @@ dotfiles pull
 dotfiles checkout master/linux/macos
 ```
 
+## 冲突解决
+
+平时总是在 linux/macos 分支下，如果做了修改，怎么合并给 master？
+先撤销分支本身的特殊修改，stash，再切到 master 下 stash apply
+
 ## 其他
 
 `ls -a` 查看隐藏文件
