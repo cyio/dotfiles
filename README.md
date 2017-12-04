@@ -8,6 +8,8 @@ curl -Lks https://cdn.rawgit.com/cyio/eb0786308145ef3af61c8fa334114ed4/raw/f309e
 ```
 
 2. 安装到新机器
+(最好先装这个，再装 zsh 和 oh-my-zsh，或者在装之前把`.zshrc`文件删掉)
+
 ```
 curl -Lks https://gist.githubusercontent.com/cyio/eb0786308145ef3af61c8fa334114ed4/raw/5e8d6b4402da3317ad935655448fa106dc107538/dotfiles-install.sh | /bin/bash
 
@@ -40,6 +42,8 @@ dotfiles checkout master/linux/macos
 
 平时总是在 linux/macos 分支下，如果做了修改，怎么合并给 master？
 先撤销分支本身的特殊修改，stash，再切到 master 下 stash apply
+
+有个别文件少量改动，但又不提交，不能切换分支怎么办？可以手动复制一份，撤销这个文件，等合并完回来再恢复
 
 ## 其他
 
