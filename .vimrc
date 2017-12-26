@@ -177,7 +177,7 @@ Plug 'vimcn/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
 " {{{ vue syntax
 " Plug 'posva/vim-vue'
-Plug 'ellisonleao/vim-polyglot'
+" Plug 'ellisonleao/vim-polyglot'
 " let g:vue_disable_pre_processors=1
 " }}}
 Plug 'rhysd/vim-gfm-syntax'
@@ -320,10 +320,16 @@ Plug 'othree/html5.vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
 let g:used_javascript_libs = 'jquery, underscore, vue'
+" {{{ vim-prettier
 Plug 'mitermayer/vim-prettier', {
 	\ 'do': 'yarn install',
 	\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
+nmap <Leader>pr <Plug>(Prettier)
 let g:prettier#config#semi = 'false'
+let g:prettier#exec_cmd_async = 1
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md PrettierAsync
+" }}}
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/yajs.vim'
 Plug 'HerringtonDarkholme/yats.vim'
@@ -492,7 +498,7 @@ set noswapfile
 
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 "支持vue高亮
-" autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
-autocmd FileType vue syntax sync fromstart
+autocmd BufRead,BufNewFile *.vue setlocal filetype=javascript
+" autocmd FileType vue syntax sync fromstart
 autocmd BufNewFile,BufRead *.wpy set filetype=html
 " }}}
