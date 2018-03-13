@@ -299,7 +299,7 @@ let g:indent_guides_guide_size=1
 " {{{ indentline 
 Plug 'Yggdroot/indentLine'
 map <leader>il :IndentLinesToggle<CR>
-let g:indentLine_char = '┊'
+" let g:indentLine_char = '┊'
 "let g:indentLine_color_term = 0 
 let g:indentLine_noConcealCursor=""
 " }}}
@@ -325,6 +325,7 @@ Plug 'mitermayer/vim-prettier', {
 	\ 'do': 'yarn install',
 	\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
 nmap <Leader>pr <Plug>(Prettier)
+let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#semi = 'false'
 let g:prettier#exec_cmd_async = 1
 let g:prettier#autoformat = 0
