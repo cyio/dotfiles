@@ -271,7 +271,7 @@ let g:tagbar_type_go = {
 " }}}
 Plug 'vim-scripts/xml.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'flazz/vim-colorschemes'
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-dispatch'
@@ -329,7 +329,7 @@ let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#semi = 'false'
 let g:prettier#exec_cmd_async = 1
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md PrettierAsync
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql PrettierAsync
 " }}}
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/yajs.vim'
@@ -369,6 +369,7 @@ nmap gZ <Plug>ZVKeyDocset
 " {{{ LeaderF
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 let g:Lf_ShortcutF = '<C-P>'
+let g:Lf_UseVersionControlTool = 0
 " }}}
 
 call plug#end()
@@ -376,9 +377,15 @@ filetype plugin indent on     " required!
  " End of plug configuration
 
 colorscheme PaperColor
-"colorscheme mango
-"let g:hybrid_use_iTerm_colors = 1
-"colorscheme hybrid
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default.dark': {
+  \       'override' : {
+  \         'color00' : ['#080808', '232'],
+  \       }
+  \     }
+  \   }
+  \ }
  
 "For ack code search
 "let g:ackprg = 'ag --nogroup --nocolor --column'
