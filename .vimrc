@@ -1,5 +1,9 @@
 " vim: fdm=marker foldenable sw=4 ts=4 sts=4
 " "zo" to open folds, "zc" to close, "zn" to disable.
+"Performance improvements
+set synmaxcol=200 "Don't bother highlighting anything over 200 chars
+let did_install_default_menus = 1 "No point loading gvim menu stuff
+let loaded_matchparen = 1 "highlighting matching pairs so slow
 
 " {{{ Alias and Snippets
 iabbrev cls console.log('')
@@ -21,6 +25,9 @@ nnoremap <leader>ev :tabnew $MYVIMRC<cr>
 
 " source my vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" When vimrc is edited, reload it 当 .vimrc 被修改时，自动生效
+autocmd! bufwritepost vimrc source ~/.vim_runtime/vimrc
 
 " leader
 map <SPACE> <leader>
@@ -109,6 +116,9 @@ vmap <D-k> :m'<-2<cr>`>my`<mzgv`yo`z
 :map <leader>l :tabnext<CR>
 :imap <leader>l <Esc>:tabnext<CR>i
 
+" natural split window
+set splitbelow
+set splitright
 " settings for resize splitted window
 nmap w[ :vertical resize -3<CR>
 nmap w] :vertical resize +3<CR>
@@ -167,9 +177,9 @@ Plug 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsListSnippets="<c-tab>"
+let g:UltiSnipsListSnippets="<c-e>"
 
-Plug 'letientai299/vim-react-snippets', { 'branch': 'es6' }
+" Plug 'letientai299/vim-react-snippets', { 'branch': 'es6' }
 Plug 'honza/vim-snippets'
 " }}}
 Plug 'tpope/vim-unimpaired'
@@ -181,7 +191,6 @@ Plug 'skywind3000/asyncrun.vim'
 " let g:vue_disable_pre_processors=1
 " }}}
 Plug 'rhysd/vim-gfm-syntax'
-Plug 'mzlogin/vim-markdown-toc'
 Plug 'ajh17/VimCompletesMe'
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " Plug 'junegunn/fzf.vim'
@@ -190,7 +199,23 @@ if !has("macunix")
     Plug 'lilydjwg/fcitx.vim'
 endif
 Plug 'digitaltoad/vim-pug'
-Plug 'mileszs/ack.vim'
+" {{{ ctrlsf
+" Plug 'mileszs/ack.vim'
+Plug 'dyng/ctrlsf.vim'
+if executable("rg")
+    let g:ctrlsf_ackprg = 'rg'
+elseif executable("ag")
+    let g:ctrlsf_ackprg = 'ag'
+endif
+nnoremap <Leader>sp :CtrlSF<CR>
+cnoreabbrev ag CtrlSF
+let g:ctrlsf_search_mode = 'async'
+let g:ctrlsf_default_view_mode = 'compact'
+let g:ctrlsf_auto_focus = {
+	\ "at": "done",
+	\ "duration_less_than": 1000
+	\ }
+" }}}
 " {{{ emmet
 Plug 'mattn/emmet-vim'
 "imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
@@ -200,7 +225,7 @@ Plug 'ervandew/supertab'
 let g:SuperTabRetainCompletionType="context"
 " }}}
 " {{{ nerdtree
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 "  映射NERDTree插件
 :map <leader>n :NERDTree<CR>
 "let loaded_nerd_tree=1
@@ -210,11 +235,9 @@ let g:NERDTreeWinSize = 32
 " map <leader>f :NERDTreeToggle<CR>
 " }}}
 " {{{ nerdcommenter 
-Plug 'scrooloose/nerdcommenter'
-
+Plug 'scrooloose/nerdcommenter', { 'on': '<Plug>NERDCommenterToggle' }
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
-
 " comment depending on the region of the .vue file
 let g:ft = ''
 fu! NERDCommenter_before()
@@ -274,7 +297,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -301,7 +323,10 @@ Plug 'Yggdroot/indentLine'
 map <leader>il :IndentLinesToggle<CR>
 " let g:indentLine_char = '┊'
 "let g:indentLine_color_term = 0 
-let g:indentLine_noConcealCursor=""
+" let g:indentLine_noConcealCursor=""
+" Let indentLine use current conceal options
+let g:indentLine_conceallevel=&conceallevel
+let g:indentLine_concealcursor=&concealcursor
 " }}}
 "Plug 'yonchu/accelerated-smooth-scroll'
 "Plug 'ianva/vim-youdao-translater'
@@ -315,7 +340,7 @@ autocmd FileType javascript setlocal omnifunc=tern#Complete
 " }}}
 Plug 'elixir-lang/vim-elixir'
 "Plug 'Valloric/YouCompleteMe'
-Plug 'maksimr/vim-jsbeautify'
+Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 Plug 'othree/html5.vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
@@ -329,7 +354,7 @@ let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#semi = 'false'
 let g:prettier#exec_cmd_async = 1
 let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql PrettierAsync
+" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql PrettierAsync
 " }}}
 Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'othree/yajs.vim'
@@ -341,9 +366,11 @@ Plug 'elzr/vim-json'
 let g:vim_json_syntax_conceal = 0
 " }}}
 "support markdown
-Plug 'godlygeek/tabular'
-"Plug 'plasticboy/vim-markdown'
-Plug 'irrationalistic/vim-tasks'
+Plug 'godlygeek/tabular', { 'for': 'markdown' }
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+let g:vim_markdown_folding_level = 2
+Plug 'mzlogin/vim-markdown-toc', { 'for': 'markdown' }
+Plug 'irrationalistic/vim-tasks', { 'for': 'markdown' }
 " {{{ devdocs.io
 Plug 'rhysd/devdocs.vim'
 nmap K <Plug>(devdocs-under-cursor)
@@ -387,24 +414,6 @@ let g:PaperColor_Theme_Options = {
   \   }
   \ }
  
-"For ack code search
-"let g:ackprg = 'ag --nogroup --nocolor --column'
-if executable("rg")
-  let g:ackprg = 'rg --vimgrep --no-heading'
-  let g:CtrlSpaceGlobCommand = 'rg -g ""'
-elseif executable("ag")
-  let g:ackprg = 'ag --vimgrep --smart-case'
-  let g:CtrlSpaceGlobCommand = 'ag -l --nocolor -g ""'
-endif
-cnoreabbrev ag Ack
-cnoreabbrev aG Ack
-cnoreabbrev Ag Ack
-cnoreabbrev AG Ack
-cnoreabbrev rg Ack
-cnoreabbrev rG Ack
-cnoreabbrev Rg Ack
-cnoreabbrev RG Ack
-
 " language format
 " autocmd FileType javascript set formatprg=prettier\ --stdin\ --parser\ flow\ --single-quote\ --trailing-comma\ es5
 " autocmd BufWritePre *.js :normal gggqG
@@ -435,10 +444,32 @@ endif
 "
 " {{{ Encoding / Basic
 
+" for mac
+set clipboard=unnamed
+
+" Set to auto read when a file is changed from the outside 设置自动读取一个文件时，从外部改变
+set autoread
+
 " 设置编码
 set encoding=utf-8
 set nocompatible
 set laststatus=2
+" Format the statusline
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{CurDir()}%h\ \ \ Line:\ %l/%L:%c
+
+function! CurDir()
+    let curdir = substitute(getcwd(), '/Users/amir/', "~/", "g")
+    return curdir
+endfunction
+
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    else
+        return ''
+    endif
+endfunction
+
 " 设置文件编码
 set fenc=utf-8
 
@@ -489,6 +520,20 @@ set showmatch
 set wildmode=full
 set wildmenu
 set complete-=i
+set ruler "Always show current position
+
+"Persistent undo 永久撤销
+try
+	if MySys() == "windows"
+	  set undodir=C:\Windows\Temp
+	else
+	  set undodir=~/.vim_runtime/undodir
+	endif
+
+	set undofile
+catch
+endtry
+
 " }}}
 
 " {{{ Syntax highlighting
