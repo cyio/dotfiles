@@ -1,6 +1,9 @@
 # https://github.com/Linfee/ultisnips-zh-doc/blob/master/doc/UltiSnips_zh.txt#L599
 
-snippet vue "vue template" !b
+# snippet vbase1 "vue template" !b
+# endsnippet
+
+snippet vbase "vue template" !b
 <template lang="pug">
 	$1
 </template>
@@ -21,3 +24,58 @@ export default {
 <style lang="stylus">
 </style>
 endsnippet
+
+snippet vbase1 "vue template" !b
+<template lang="pug">
+	$1
+</template>
+<script>
+export default {
+	data () {
+		return {
+		}
+	},
+	methods: {
+	},
+	computed: {
+	},
+	mounted () {
+	}
+}
+</script>
+<style lang="scss">
+</style>
+endsnippet
+
+snippet vdata "vue template" !b
+data() {
+	return {
+		$1
+	}
+},
+endsnippet
+
+snippet vprops "vue template" !b
+props: {
+	$1: {
+		type: Object,
+		required: true
+	},
+},
+endsnippet
+
+snippet vcomputed "vue template" !b
+computed: {
+	$1() {
+	},
+},
+endsnippet
+
+snippet vfilter "vue template" !b
+import $1 from './components/$1.vue'
+endsnippet
+
+snippet vimport "vue template" !b
+import $1 from './components/$1.vue'
+endsnippet
+
