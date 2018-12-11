@@ -51,6 +51,10 @@ nnoremap <S-left> :tabp<CR>
 " node
 noremap <leader>e <Esc>:AsyncRun -save=1 node --harmony %<CR>
 
+" C++
+nnoremap <silent> <F9> :AsyncRun -save=1 g++ -O3 "%" -o "%<" -lpthread && $(VIM_FILEDIR)/$(VIM_FILENOEXT) <cr>
+" nnoremap <silent> <F8> :AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)" <cr>
+
 " open new tab
 nnoremap <leader>t :tabnew<CR>
 " sudo
@@ -58,10 +62,10 @@ cmap w!! %!sudo tee > /dev/null %
 " save
 nnoremap <leader>w :w<CR>
 " copy paste
-nmap <Leader>p :set paste<CR>"+]p:set nopaste<CR>
-nmap <Leader>P :set paste<CR>"+]P:set nopaste<CR>
-vmap <Leader>y "+y
-vmap <Leader>Y "+Y
+" nmap <Leader>p :set paste<CR>"+]p:set nopaste<CR>
+" nmap <Leader>P :set paste<CR>"+]P:set nopaste<CR>
+" vmap <Leader>y "+y
+" vmap <Leader>Y "+Y
 
 " insert mode uppercase the current word
 "  <esc> : go to normal mode
@@ -173,23 +177,31 @@ let g:jsx_ext_required = 0
 " }}}
 " {{{ ultisnips
 Plug 'SirVer/ultisnips'
-" let g:UltiSnipsSnippetsDir='~/UltiSnips'
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-let g:UltiSnipsListSnippets="<c-e>"
+let g:UltiSnipsSnippetsDir='~/UltiSnips'
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" let g:UltiSnipsListSnippets="<c-e>"
 
 " Plug 'letientai299/vim-react-snippets', { 'branch': 'es6' }
 Plug 'honza/vim-snippets'
 " }}}
+
 Plug 'tpope/vim-unimpaired'
 Plug 'vimcn/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
+" 自动打开 quickfix window ，高度为 6
+let g:asyncrun_open = 6
+" 任务结束时候响铃提醒
+let g:asyncrun_bell = 1
 " {{{ vue syntax
 " Plug 'posva/vim-vue'
-" Plug 'ellisonleao/vim-polyglot'
+Plug 'posva/vim-vue', { 'branch': 'performance-enhancement' }
 " let g:vue_disable_pre_processors=1
+" Plug 'ellisonleao/vim-polyglot'
 " }}}
+Plug 'Shougo/context_filetype.vim'
+Plug 'tyru/caw.vim'
 Plug 'rhysd/vim-gfm-syntax'
 Plug 'ajh17/VimCompletesMe'
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -215,50 +227,56 @@ let g:ctrlsf_auto_focus = {
 	\ "at": "done",
 	\ "duration_less_than": 1000
 	\ }
+let g:ctrlsf_mapping = {
+    \ "next": "n",
+    \ "prev": "N",
+    \ }
+let g:ctrlsf_extra_backend_args = {
+    \ 'rg': ''
+    \ }
 " }}}
 " {{{ emmet
 Plug 'mattn/emmet-vim'
 "imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 " }}}
-" {{{ supertab
-Plug 'ervandew/supertab'
-let g:SuperTabRetainCompletionType="context"
-" }}}
 " {{{ nerdtree
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-"  映射NERDTree插件
 :map <leader>n :NERDTree<CR>
 "let loaded_nerd_tree=1
 let NERDChristmasTree=1
 let g:NERDTreeQuitOnOpen = 0
-let g:NERDTreeWinSize = 32
+let g:NERDTreeWinSize=32
+let NERDTreeShowBookmarks=1
 " map <leader>f :NERDTreeToggle<CR>
 " }}}
+Plug 'junegunn/vim-easy-align'
+" <leader>\ Align GitHub-flavored Markdown tables
+au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
 " {{{ nerdcommenter 
-Plug 'scrooloose/nerdcommenter', { 'on': '<Plug>NERDCommenterToggle' }
+Plug 'scrooloose/nerdcommenter'
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
 " comment depending on the region of the .vue file
-let g:ft = ''
-fu! NERDCommenter_before()
-  if &ft == 'vue'
-    let g:ft = 'vue'
-    let stack = synstack(line('.'), col('.'))
-    if len(stack) > 0
-      let syn = synIDattr((stack)[0], 'name')
-      if len(syn) > 0
-        let syn = tolower(syn)
-        exe 'setf '.syn
-      endif
-    endif
-  endif
-endfu
-fu! NERDCommenter_after()
-  if g:ft == 'vue'
-    setf vue
-    g:ft
-  endif
-endfu
+" let g:ft = ''
+" fu! NERDCommenter_before()
+  " if &ft == 'vue'
+    " let g:ft = 'vue'
+    " let stack = synstack(line('.'), col('.'))
+    " if len(stack) > 0
+      " let syn = synIDattr((stack)[0], 'name')
+      " if len(syn) > 0
+        " let syn = tolower(syn)
+        " exe 'setf '.syn
+      " endif
+    " endif
+  " endif
+" endfu
+" fu! NERDCommenter_after()
+  " if g:ft == 'vue'
+    " setf vue
+    " g:ft
+  " endif
+" endfu
 " }}}
 " {{{ tagbar 
 "Plug 'majutsushi/tagbar'
@@ -295,11 +313,12 @@ let g:tagbar_type_go = {
 Plug 'vim-scripts/xml.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'NLKNguyen/papercolor-theme'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
+let g:session_autoload = 'no'
 "Plug 'bling/vim-airline'
 " {{{ easymotion
 "Plug 'Lokaltog/vim-easymotion'
@@ -313,38 +332,36 @@ Plug 'vim-scripts/wildfire.vim'
 " {{{ indent guide
 " Plug 'nathanaelkane/vim-indent-guides'
 " indent 默认不显示，按 i 显示
-let g:indent_guides_enable_on_vim_startup=0
-let g:indent_guides_start_level=2
-let g:indent_guides_guide_size=1
+" let g:indent_guides_enable_on_vim_startup=0
+" let g:indent_guides_start_level=2
+" let g:indent_guides_guide_size=1
 ":nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 " }}}
 " {{{ indentline 
 Plug 'Yggdroot/indentLine'
-map <leader>il :IndentLinesToggle<CR>
+" map <leader>il :IndentLinesToggle<CR>
 " let g:indentLine_char = '┊'
-"let g:indentLine_color_term = 0 
+" let g:indentLine_enabled = 1
+" let g:indentLine_color_term = 100 
 " let g:indentLine_noConcealCursor=""
 " Let indentLine use current conceal options
-let g:indentLine_conceallevel=&conceallevel
-let g:indentLine_concealcursor=&concealcursor
+" let g:indentLine_conceallevel=&conceallevel
+" let g:indentLine_concealcursor=&concealcursor
 " }}}
 "Plug 'yonchu/accelerated-smooth-scroll'
 "Plug 'ianva/vim-youdao-translater'
 " {{{ tern
-Plug 'marijnh/tern_for_vim'
+" Plug 'marijnh/tern_for_vim'
 
-let tern_show_signature_in_pum = 1
-let g:tern_map_keys=1
-let tern_show_argument_hints = 'on_hold'
-autocmd FileType javascript setlocal omnifunc=tern#Complete
+" let tern_show_signature_in_pum = 1
+" let g:tern_map_keys=1
+" let tern_show_argument_hints = 'on_hold'
+" autocmd FileType javascript setlocal omnifunc=tern#Complete
 " }}}
-Plug 'elixir-lang/vim-elixir'
 "Plug 'Valloric/YouCompleteMe'
-Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
+" Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 Plug 'othree/html5.vim'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'pangloss/vim-javascript'
-let g:used_javascript_libs = 'jquery, underscore, vue'
 " {{{ vim-prettier
 Plug 'mitermayer/vim-prettier', {
 	\ 'do': 'yarn install',
@@ -356,9 +373,10 @@ let g:prettier#exec_cmd_async = 1
 let g:prettier#autoformat = 0
 " autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql PrettierAsync
 " }}}
-Plug 'othree/javascript-libraries-syntax.vim'
-Plug 'othree/yajs.vim'
-Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'othree/javascript-libraries-syntax.vim'
+" let g:used_javascript_libs = 'vue' "react
+Plug 'othree/yajs.vim' " js syntax
+Plug 'HerringtonDarkholme/yats.vim' " TypeScript
 " {{{ vim-json
 Plug 'elzr/vim-json'
 
@@ -366,14 +384,18 @@ Plug 'elzr/vim-json'
 let g:vim_json_syntax_conceal = 0
 " }}}
 "support markdown
+" 对齐文本
 Plug 'godlygeek/tabular', { 'for': 'markdown' }
+" 支持 :Toc 命令，依赖 tabular 
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 let g:vim_markdown_folding_level = 2
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_fenced_languages = ['js=javascript', 'css=scss']
 Plug 'mzlogin/vim-markdown-toc', { 'for': 'markdown' }
-Plug 'irrationalistic/vim-tasks', { 'for': 'markdown' }
+Plug 'irrationalistic/vim-tasks'
 " {{{ devdocs.io
 Plug 'rhysd/devdocs.vim'
-nmap K <Plug>(devdocs-under-cursor)
+nmap <leader>dd <Plug>(devdocs-under-cursor)
 " :DD
 " :DD Map
 " :DD scss @mixin
@@ -384,19 +406,37 @@ command! -nargs=* DD silent! call system(len(split(<q-args>, ' ')) == 0 ?
 			\ url . &ft . ' ' . <q-args> . "'" : url . <q-args> . "'")
 " }}}
 " {{{ zeal
-Plug 'KabbAmine/zeavim.vim', {'on': [
-			\	'Zeavim', 'Docset',
-			\	'<Plug>Zeavim',
-			\	'<Plug>ZVVisSelection',
-			\	'<Plug>ZVKeyDocset',
-			\	'<Plug>ZVMotion'
-			\ ]}
-nmap gZ <Plug>ZVKeyDocset
+" Plug 'KabbAmine/zeavim.vim', {'on': [
+			" \	'Zeavim', 'Docset',
+			" \	'<Plug>Zeavim',
+			" \	'<Plug>ZVVisSelection',
+			" \	'<Plug>ZVKeyDocset',
+			" \	'<Plug>ZVMotion'
+			" \ ]}
+" nmap gZ <Plug>ZVKeyDocset
 " }}}
 " {{{ LeaderF
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 let g:Lf_ShortcutF = '<C-P>'
 let g:Lf_UseVersionControlTool = 0
+let g:Lf_CommandMap = {'<C-K>': ['<C-P>']}  " 避免与 tmux prefix 冲突
+" }}}
+" {{{ supertab 用 tab 键进行插入补全
+Plug 'ervandew/supertab'
+let g:SuperTabRetainCompletionType="context"
+" }}}
+" {{{ coc
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
+" Use K for show documentation in preview window
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 " }}}
 
 call plug#end()
@@ -404,6 +444,7 @@ filetype plugin indent on     " required!
  " End of plug configuration
 
 colorscheme PaperColor
+autocmd VimEnter,SessionLoadPost * :colorscheme PaperColor
 let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default.dark': {
@@ -478,8 +519,24 @@ set fencs=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 
 "显示行号
 set number
-"Show related row numbers
+" relativenumber {{{
 set relativenumber
+" augroup CursorLineOnlyInActiveWindow
+" autocmd!
+" autocmd InsertLeave * setlocal relativenumber
+" autocmd InsertEnter * setlocal norelativenumber
+" autocmd BufEnter * setlocal cursorline
+" autocmd BufLeave * setlocal nocursorline
+" augroup END
+function! NumberToggle()
+    if(&relativenumber == 1)
+        set norelativenumber number
+    else
+        set relativenumber
+    endif
+endfunc
+nnoremap <C-n> :call NumberToggle()<CR>
+" }}}
 
 "indent
 set smartindent
@@ -539,7 +596,7 @@ endtry
 " {{{ Syntax highlighting
 
 syntax on
-set background=dark
+" set background=dark
 set t_Co=256
 set autoread
 set nobackup
@@ -548,7 +605,13 @@ set noswapfile
 
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 "支持vue高亮
-autocmd BufRead,BufNewFile *.vue setlocal filetype=javascript
-" autocmd FileType vue syntax sync fromstart
+" autocmd BufRead,BufNewFile *.vue setlocal filetype=javascript
+nmap <Leader>pj :setlocal filetype=javascript<CR>
+nmap <Leader>pn :setlocal filetype=none<CR>
+autocmd FileType vue syntax sync fromstart
+autocmd FileType vue setlocal commentstring=//\ %s
+autocmd FileType vue :set norelativenumber
 autocmd BufNewFile,BufRead *.wpy set filetype=html
 " }}}
+
+set exrc " allow local vimrc
