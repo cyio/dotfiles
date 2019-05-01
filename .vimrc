@@ -35,7 +35,7 @@ map <SPACE> <leader>
 " fix whitespace
 nnoremap <F4> :retab<CR>:%s/\s\+$//e<CR><C-o>
 
-" fix syntax hilighting
+" fix syntax hilightin, expc vue large file
 nnoremap <F3> :syn sync fromstart<CR>
 
 " move the current line below
@@ -178,10 +178,10 @@ let g:jsx_ext_required = 0
 " {{{ ultisnips
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsSnippetsDir='~/UltiSnips'
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<c-b>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-" let g:UltiSnipsListSnippets="<c-e>"
+let g:UltiSnipsExpandTrigger="<c-u>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsListSnippets="<c-e>"
 
 " Plug 'letientai299/vim-react-snippets', { 'branch': 'es6' }
 Plug 'honza/vim-snippets'
@@ -195,10 +195,9 @@ let g:asyncrun_open = 6
 " 任务结束时候响铃提醒
 let g:asyncrun_bell = 1
 " {{{ vue syntax
-" Plug 'posva/vim-vue'
 Plug 'posva/vim-vue', { 'branch': 'performance-enhancement' }
 " let g:vue_disable_pre_processors=1
-" Plug 'ellisonleao/vim-polyglot'
+" Plug 'ellisonleao/vim-polyglot' " slow for vue
 " }}}
 Plug 'Shougo/context_filetype.vim'
 Plug 'tyru/caw.vim'
@@ -237,7 +236,7 @@ let g:ctrlsf_extra_backend_args = {
 " }}}
 " {{{ emmet
 Plug 'mattn/emmet-vim'
-"imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+" imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 " }}}
 " {{{ nerdtree
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
@@ -247,6 +246,7 @@ let NERDChristmasTree=1
 let g:NERDTreeQuitOnOpen = 0
 let g:NERDTreeWinSize=32
 let NERDTreeShowBookmarks=1
+let NERDTreeNodeDelimiter = "\t"
 " map <leader>f :NERDTreeToggle<CR>
 " }}}
 Plug 'junegunn/vim-easy-align'
@@ -310,7 +310,7 @@ let g:tagbar_type_go = {
     \ 'ctagsargs' : '-sort -silent'
 \ }
 " }}}
-Plug 'vim-scripts/xml.vim'
+" Plug 'vim-scripts/xml.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'tpope/vim-fugitive'
@@ -348,7 +348,6 @@ Plug 'Yggdroot/indentLine'
 " let g:indentLine_conceallevel=&conceallevel
 " let g:indentLine_concealcursor=&concealcursor
 " }}}
-"Plug 'yonchu/accelerated-smooth-scroll'
 "Plug 'ianva/vim-youdao-translater'
 " {{{ tern
 " Plug 'marijnh/tern_for_vim'
@@ -363,14 +362,16 @@ Plug 'Yggdroot/indentLine'
 Plug 'othree/html5.vim'
 Plug 'hail2u/vim-css3-syntax'
 " {{{ vim-prettier
-Plug 'mitermayer/vim-prettier', {
+Plug 'prettier/vim-prettier', {
 	\ 'do': 'yarn install',
-	\ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql'] }
+    \ 'branch': 'release/1.x',
+    \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html'] }
 nmap <Leader>pr <Plug>(Prettier)
 let g:prettier#config#bracket_spacing = 'true'
 let g:prettier#config#semi = 'false'
 let g:prettier#exec_cmd_async = 1
 let g:prettier#autoformat = 0
+let g:prettier#config#single_quote = 'true'
 " autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql PrettierAsync
 " }}}
 " Plug 'othree/javascript-libraries-syntax.vim'
@@ -390,6 +391,7 @@ Plug 'godlygeek/tabular', { 'for': 'markdown' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 let g:vim_markdown_folding_level = 2
 let g:vim_markdown_conceal = 0
+let g:vim_markdown_conceal_code_blocks = 0
 let g:vim_markdown_fenced_languages = ['js=javascript', 'css=scss']
 Plug 'mzlogin/vim-markdown-toc', { 'for': 'markdown' }
 Plug 'irrationalistic/vim-tasks'
@@ -422,13 +424,28 @@ let g:Lf_UseVersionControlTool = 0
 let g:Lf_CommandMap = {'<C-K>': ['<C-P>']}  " 避免与 tmux prefix 冲突
 " }}}
 " {{{ supertab 用 tab 键进行插入补全
-Plug 'ervandew/supertab'
-let g:SuperTabRetainCompletionType="context"
+" Plug 'ervandew/supertab'
+" let g:SuperTabRetainCompletionType="context"
 " }}}
 " {{{ coc
 " Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" codeaction
+vmap <leader>a  <Plug>(coc-codeaction-selected)
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+
 " Use K for show documentation in preview window
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if &filetype == 'vim'
@@ -437,6 +454,77 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+" }}}
+Plug 'paroxayte/vwm.vim'
+let s:vimdiff = {
+      \  'name': 'vimdiff',
+      \  'top':
+      \  {
+      \    'init': ['wincmd o', 'normal ibase'],
+      \    'left':
+      \    {
+      \      'init': ['normal ilocal']
+      \    },
+      \    'right':
+      \    {
+      \      'init': ['normal iremote']
+      \    }
+      \  },
+      \  'bot':
+      \  {
+      \    'init': ['normal imerge'],
+      \    'sz': 20
+      \  }
+      \}
+
+let s:frame = {
+      \  'name': 'frame',
+      \  'top': {
+      \    'left': {
+      \      'init': []
+      \    },
+      \    'right': {
+      \      'init': []
+      \    }
+      \  },
+      \  'bot': {
+      \    'left': {
+      \      'init': []
+      \    },
+      \    'right': {
+      \      'init': []
+      \    }
+      \  },
+      \  'left': {
+      \    'init' :[]
+      \  },
+      \  'right': {
+      \    'init' :[]
+      \  }
+      \}
+
+let s:bot_panel = {
+      \    'name': 'bot_panel',
+      \    'bot':
+      \    {
+      \      'sz': 12,
+      \      'left':
+      \      {
+      \        'init': []
+      \      }
+      \    }
+      \  }
+
+let g:vwm#layouts = [ s:vimdiff, s:frame, s:bot_panel ]
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+
+" {{{ ale lint
+" Plug 'w0rp/ale'
+" let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
+" let g:ale_lint_on_text_changed = 'never'
 " }}}
 
 call plug#end()
@@ -591,8 +679,6 @@ try
 catch
 endtry
 
-" }}}
-
 " {{{ Syntax highlighting
 
 syntax on
@@ -602,13 +688,14 @@ set autoread
 set nobackup
 set nowritebackup
 set noswapfile
+" Better display for messages
+set cmdheight=2
 
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
-"支持vue高亮
-" autocmd BufRead,BufNewFile *.vue setlocal filetype=javascript
 nmap <Leader>pj :setlocal filetype=javascript<CR>
 nmap <Leader>pn :setlocal filetype=none<CR>
-autocmd FileType vue syntax sync fromstart
+nmap <Leader>pv :setlocal filetype=vue<CR>
+" autocmd FileType vue syntax sync fromstart
 autocmd FileType vue setlocal commentstring=//\ %s
 autocmd FileType vue :set norelativenumber
 autocmd BufNewFile,BufRead *.wpy set filetype=html
