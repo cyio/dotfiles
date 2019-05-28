@@ -1,3 +1,4 @@
+alias sa='alias|grep'
 alias termnot='terminal-notifier -message "Done" -title "Done"'
 alias dotfiles='git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias byt='bytewiser'
@@ -22,3 +23,19 @@ function lazygit() {
   git commit -a -m "$1"
   git push
 }
+
+alias gcd='git checkout dev'
+alias gcnv='git commit --no-verify'
+alias gcml='git commit -m `update`'
+alias gc1='git clone --depth=1'
+alias gr1='git reset HEAD~1'
+# npm script shortcuts
+# alias yt="yarn test"
+# alias ytu="yarn test:unit"
+# alias yte="yarn test:e2e"
+# alias yb="yarn build"
+# alias yd="yarn dev"
+# alias ys="yarn serve"
+# alias dt="yarn dev:test"
+# alias ds="yarn dev:ssr"
+# alias y="yarn"

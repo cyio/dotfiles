@@ -1,13 +1,13 @@
 # public config
-source ~/.alias.zsh
 export ZSH=~/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 DISABLE_LS_COLORS="true"
 eval "$(fasd --init auto)"
-plugins=(git tmux git-flow-completion autojump ssh-agent)
+plugins=(git tmux ssh-agent)
 DISABLE_AUTO_UPDATE="true"
 export TERM="xterm-256color"
 source $ZSH/oh-my-zsh.sh
+source ~/.alias.zsh
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -46,6 +46,11 @@ if exists percol; then
 	}
 fi
 
+# antigen
+source $HOME/.zsh-plugins/antigen.zsh
+antigen bundle fteem/git-semantic-commits
+antigen apply
+
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/local/jdk/bin
 export PATH=$PATH:$HOME/.npm-packages/bin:$HOME/.yarn/bin
 export ANDROID_HOME=/usr/local/share/android-sdk
@@ -64,6 +69,12 @@ setopt hist_ignore_space
 setopt hist_fcntl_lock 2>/dev/null
 setopt hist_reduce_blanks
 setopt SHARE_HISTORY
+
+# Enable Ctrl-x-Ctrl-e to edit command line
+autoload -U edit-command-line
+# Vi style:
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
 
 # computer config
 
