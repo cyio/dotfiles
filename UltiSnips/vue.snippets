@@ -1,32 +1,8 @@
 # https://github.com/Linfee/ultisnips-zh-doc/blob/master/doc/UltiSnips_zh.txt#L599
 
-# snippet vbase1 "vue template" !b
-# endsnippet
-
 snippet vbase "vue template" !b
 <template lang="pug">
-	$1
-</template>
-<script>
-export default {
-	data () {
-		return {
-		}
-	},
-	methods: {
-	},
-	computed: {
-	},
-	mounted () {
-	}
-}
-</script>
-<style lang="stylus">
-</style>
-endsnippet
-
-snippet vbase1 "vue template" !b
-<template lang="pug">
+#app
 	$1
 </template>
 <script>
@@ -44,6 +20,7 @@ export default {
 }
 </script>
 <style lang="scss">
+@import "@/common/styles/global.scss";
 </style>
 endsnippet
 
@@ -59,7 +36,7 @@ snippet vprops "vue template" !b
 props: {
 	$1: {
 		type: Object,
-		required: true
+		default: () => ({})
 	},
 },
 endsnippet
@@ -72,10 +49,42 @@ computed: {
 endsnippet
 
 snippet vfilter "vue template" !b
-import $1 from './components/$1.vue'
+filters: {
+	$1() {
+	},
+},
 endsnippet
 
 snippet vimport "vue template" !b
 import $1 from './components/$1.vue'
+endsnippet
+
+snippet vfor "vue for" !b
+${1:div}(v-for="item in ${2:item}s" :key="${2:item}.id")
+endsnippet
+
+snippet vexport "vue export" !b
+export default {
+  components: {
+  },
+  data () {
+    return {
+    }
+  },
+  methods: {
+  },
+  computed: {
+  },
+  filters: {
+  },
+  watch: {
+  },
+  created() {
+  },
+  mounted () {
+  },
+  beforeDestory () {
+  }
+}
 endsnippet
 
