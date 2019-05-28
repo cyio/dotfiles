@@ -133,6 +133,30 @@ nmap w= :resize +3<CR>
 " use in  edit
 imap <C-A> <C-C><c-p>
 
+" edit note index file
+nnoremap <leader>ww :e ~/Projects/worknotes/src/index.md<cr>
+nnoremap <leader>wb :e ~/Projects/Personal/cyio/docs/index.md<cr>
+
+" 切换最大化窗口，不丢失布局
+nnoremap <C-W>O :call MaximizeToggle()<CR>
+nnoremap <C-W>o :call MaximizeToggle()<CR>
+nnoremap <C-W><C-O> :call MaximizeToggle()<CR>
+
+function! MaximizeToggle()
+  if exists("s:maximize_session")
+    exec "source " . s:maximize_session
+    call delete(s:maximize_session)
+    unlet s:maximize_session
+    let &hidden=s:maximize_hidden_save
+    unlet s:maximize_hidden_save
+  else
+    let s:maximize_hidden_save = &hidden
+    let s:maximize_session = tempname()
+    set hidden
+    exec "mksession! " . s:maximize_session
+    only
+  endif
+endfunction
 " }}}
 
 " {{{ Search and Completion
@@ -188,7 +212,7 @@ Plug 'honza/vim-snippets'
 " }}}
 
 Plug 'tpope/vim-unimpaired'
-Plug 'vimcn/vimcdoc'
+" Plug 'vimcn/vimcdoc'
 Plug 'skywind3000/asyncrun.vim'
 " 自动打开 quickfix window ，高度为 6
 let g:asyncrun_open = 6
@@ -375,8 +399,8 @@ let g:prettier#autoformat = 0
 " }}}
 " Plug 'othree/javascript-libraries-syntax.vim'
 " let g:used_javascript_libs = 'vue' "react
-Plug 'othree/yajs.vim' " js syntax
-Plug 'HerringtonDarkholme/yats.vim' " TypeScript
+" Plug 'othree/yajs.vim' " js syntax
+" Plug 'HerringtonDarkholme/yats.vim' " TypeScript
 " {{{ vim-json
 Plug 'elzr/vim-json'
 
@@ -439,9 +463,16 @@ function! s:show_documentation()
 endfunction
 " }}}
 
+" Plug 'vimwiki/vimwiki'
+" let g:vimwiki_list = [{'path': '~/Projects/worknotes/src',
+                      " \ 'syntax': 'markdown', 'ext': '.md'}]
+
+Plug 'junegunn/goyo.vim'
+
 call plug#end()
 filetype plugin indent on     " required!
  " End of plug configuration
+
 
 colorscheme PaperColor
 autocmd VimEnter,SessionLoadPost * :colorscheme PaperColor
@@ -598,7 +629,6 @@ endtry
 syntax on
 " set background=dark
 set t_Co=256
-set autoread
 set nobackup
 set nowritebackup
 set noswapfile
@@ -615,3 +645,4 @@ autocmd BufNewFile,BufRead *.wpy set filetype=html
 " }}}
 
 set exrc " allow local vimrc
+" set shell=/bin/zsh
