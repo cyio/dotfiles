@@ -94,10 +94,10 @@ onoremap in{ :<c-u>normal! f{vi{<cr>
 onoremap in[ :<c-u>normal! f[vi[<cr>
 
 "tabs
-map <leader>tn :tabnew<cr>
-map <leader>te :tabedit
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
+" map <leader>tn :tabnew<cr>
+" map <leader>te :tabedit
+" map <leader>tc :tabclose<cr>
+" map <leader>tm :tabmove
 
 " move lines up or down (command - D)
 nmap <D-j> mz:m+<cr>`z
@@ -135,7 +135,7 @@ imap <C-A> <C-C><c-p>
 
 " edit note index file
 nnoremap <leader>ww :e ~/Projects/worknotes/src/index.md<cr>
-nnoremap <leader>wb :e ~/Projects/Personal/cyio/docs/index.md<cr>
+nnoremap <leader>wb :e ~/Projects/Personal/cyio/docs/catalog.md<cr>
 
 " 切换最大化窗口，不丢失布局
 nnoremap <C-W>O :call MaximizeToggle()<CR>
@@ -202,10 +202,12 @@ let g:jsx_ext_required = 0
 " {{{ ultisnips
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsSnippetsDir='~/UltiSnips'
-let g:UltiSnipsExpandTrigger="<c-u>"
+" let g:UltiSnipsExpandTrigger="<c-u>"
+let g:UltiSnipsExpandTrigger = "<nop>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 let g:UltiSnipsListSnippets="<c-e>"
+let g:UltiSnipsEditSplit="vertical"
 
 " Plug 'letientai299/vim-react-snippets', { 'branch': 'es6' }
 Plug 'honza/vim-snippets'
@@ -224,7 +226,7 @@ Plug 'posva/vim-vue', { 'branch': 'performance-enhancement' }
 " Plug 'ellisonleao/vim-polyglot' " slow for vue
 " }}}
 Plug 'Shougo/context_filetype.vim'
-Plug 'tyru/caw.vim'
+" Plug 'tyru/caw.vim'
 Plug 'rhysd/vim-gfm-syntax'
 Plug 'ajh17/VimCompletesMe'
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -260,6 +262,7 @@ let g:ctrlsf_extra_backend_args = {
 " }}}
 " {{{ emmet
 Plug 'mattn/emmet-vim'
+let g:user_emmet_leader_key='<C-Z>'
 " imap <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 " }}}
 " {{{ nerdtree
@@ -273,9 +276,13 @@ let NERDTreeShowBookmarks=1
 let NERDTreeNodeDelimiter = "\t"
 " map <leader>f :NERDTreeToggle<CR>
 " }}}
-Plug 'junegunn/vim-easy-align'
+" {{{ align / table
+Plug 'junegunn/vim-easy-align', { 'for': 'markdown' }
 " <leader>\ Align GitHub-flavored Markdown tables
 au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
+Plug 'dhruvasagar/vim-table-mode'
+let g:table_mode_corner='|'
+" }}}
 " {{{ nerdcommenter 
 Plug 'scrooloose/nerdcommenter'
 " Add spaces after comment delimiters by default
@@ -401,7 +408,7 @@ let g:prettier#config#single_quote = 'true'
 " Plug 'othree/javascript-libraries-syntax.vim'
 " let g:used_javascript_libs = 'vue' "react
 " Plug 'othree/yajs.vim' " js syntax
-" Plug 'HerringtonDarkholme/yats.vim' " TypeScript
+Plug 'HerringtonDarkholme/yats.vim' " TypeScript
 " {{{ vim-json
 Plug 'elzr/vim-json'
 
@@ -453,8 +460,8 @@ let g:Lf_CommandMap = {'<C-K>': ['<C-P>']}  " 避免与 tmux prefix 冲突
 " }}}
 " {{{ coc
 " Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})}}
-
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})},
+    \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'vue', 'yaml', 'html', 'jsx', 'tsx'] }
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -481,6 +488,10 @@ endfunction
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+" Improve the completion experience not work?
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
 " }}}
 Plug 'paroxayte/vwm.vim'
 let s:vimdiff = {
@@ -551,10 +562,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 " let g:ale_lint_on_text_changed = 'never'
 " }}}
 
-" Plug 'vimwiki/vimwiki'
-" let g:vimwiki_list = [{'path': '~/Projects/worknotes/src',
-                      " \ 'syntax': 'markdown', 'ext': '.md'}]
-
 Plug 'junegunn/goyo.vim'
 
 " Plug 'vimwiki/vimwiki'
@@ -562,6 +569,12 @@ Plug 'junegunn/goyo.vim'
                       " \ 'syntax': 'markdown', 'ext': '.md'}]
 
 Plug 'junegunn/goyo.vim'
+Plug 'coot/vim-term'
+" {{{ vim-translate-me
+Plug 'voldikss/vim-translate-me'
+let g:vtm_default_mapping = 0
+let g:vtm_default_to_lang = 'en'
+" }}}
 
 call plug#end()
 filetype plugin indent on     " required!
@@ -735,6 +748,7 @@ nmap <Leader>pv :setlocal filetype=vue<CR>
 autocmd FileType vue setlocal commentstring=//\ %s
 autocmd FileType vue :set norelativenumber
 autocmd BufNewFile,BufRead *.wpy set filetype=html
+" autocmd BufNewFile,BufRead *.ts* set filetype=javascript
 " }}}
 
 set exrc " allow local vimrc

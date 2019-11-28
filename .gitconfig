@@ -6,6 +6,7 @@
 	excludesfile = ~/.gitignore_global
 	editor = vim
   quotepath = false
+  pager = diff-so-fancy | less --tabs=4 -RFX
 [user]
 	email = icaner@qq.com
 	name = cyio
@@ -54,7 +55,10 @@
 	rebase = true
 [diff]
   tool = icdiff
+	; noprefix = true
 [difftool]
   prompt = false
 [difftool "icdiff"]
   cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
+[color]
+	ui = true

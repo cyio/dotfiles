@@ -47,9 +47,9 @@ if exists percol; then
 fi
 
 # antigen
-source $HOME/.zsh-plugins/antigen.zsh
-antigen bundle fteem/git-semantic-commits
-antigen apply
+# source $HOME/.zsh-plugins/antigen.zsh
+# antigen bundle fteem/git-semantic-commits
+# antigen apply
 
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/local/jdk/bin
 export PATH=$PATH:$HOME/.npm-packages/bin:$HOME/.yarn/bin
@@ -85,6 +85,20 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 export PATH="/usr/local/opt/icu4c/bin:$PATH"
 export PATH="/usr/local/opt/icu4c/sbin:$PATH"
 
+# Install zsh-async if it’s not present
+if [[ ! -a ~/.zsh-async ]]; then
+  git clone git@github.com:mafredri/zsh-async.git ~/.zsh-async
+fi
+source ~/.zsh-async/async.zsh
+
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+function load_nvm() {
+  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+}
+
+# Initialize worker
+async_start_worker nvm_worker -n
+async_register_callback nvm_worker load_nvm
+async_job nvm_worker sleep 0.1
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
