@@ -4,7 +4,7 @@
 
 1. 初始设置，只需一次
 ```
-curl -Lks https://cdn.rawgit.com/cyio/eb0786308145ef3af61c8fa334114ed4/raw/f309eae1da5f2604525049bfb4a7c23c098ba57e/dotfiles-init.sh | /bin/bash
+curl -Lks https://gist.githubusercontent.com/cyio/eb0786308145ef3af61c8fa334114ed4/raw/5e8d6b4402da3317ad935655448fa106dc107538/dotfiles-init.sh | /bin/bash
 ```
 
 2. 安装到新机器
