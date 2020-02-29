@@ -75,6 +75,7 @@ nnoremap <leader>w :w<CR>
 "  i 	 : back to insert mode
 inoremap <c-u> <esc>viwUi
 
+set nohlsearch
 " remove last search highlight
 nnoremap <C-l> :nohlsearch<CR><C-l>
 
@@ -99,36 +100,16 @@ onoremap in[ :<c-u>normal! f[vi[<cr>
 " map <leader>tc :tabclose<cr>
 " map <leader>tm :tabmove
 
-" move lines up or down (command - D)
-nmap <D-j> mz:m+<cr>`z
-nmap <D-k> mz:m-2<cr>`z
-vmap <D-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <D-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-" Tab move lines left or right (c-Ctrl,s-Shift)
-" nmap    <c-tab>     v>
-" nmap    <s-tab>     v<
-" vmap    <c-tab>     >gv
-" vmap    <s-tab>     <gv
-
-" tab navigation like zsh
-:nmap <leader>h :tabprevious<CR>
-:map <leader>h :tabprevious<CR>
-:imap <leader>h <Esc>:tabprevious<CR>i
-
-:nmap <leader>l :tabnext<CR>
-:map <leader>l :tabnext<CR>
-:imap <leader>l <Esc>:tabnext<CR>i
-
-" natural split window
-set splitbelow
-set splitright
 " settings for resize splitted window
 nmap w[ :vertical resize -3<CR>
 nmap w] :vertical resize +3<CR>
 
 nmap w- :resize -3<CR>
 nmap w= :resize +3<CR>
+
+" natural split window
+set splitbelow
+set splitright
 
 " use in  edit
 imap <C-A> <C-C><c-p>
@@ -237,8 +218,7 @@ if !has("macunix")
 endif
 Plug 'digitaltoad/vim-pug'
 " {{{ ctrlsf
-" Plug 'mileszs/ack.vim'
-Plug 'dyng/ctrlsf.vim'
+Plug 'dyng/ctrlsf.vim', { 'commit': '0c35992' }
 if executable("rg")
     let g:ctrlsf_ackprg = 'rg'
 elseif executable("ag")
@@ -268,6 +248,7 @@ let g:user_emmet_leader_key='<C-Z>'
 " {{{ nerdtree
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 :map <leader>n :NERDTree<CR>
+:map <leader>nf :NERDTreeFind<CR>
 "let loaded_nerd_tree=1
 let NERDChristmasTree=1
 let g:NERDTreeQuitOnOpen = 0
@@ -575,6 +556,9 @@ Plug 'voldikss/vim-translate-me'
 let g:vtm_default_mapping = 0
 let g:vtm_default_to_lang = 'en'
 " }}}
+Plug 'rhysd/git-messenger.vim'
+" Plug 'airblade/vim-gitgutter'
+" Plug 'jreybert/vimagit'
 
 call plug#end()
 filetype plugin indent on     " required!
@@ -657,24 +641,6 @@ set fencs=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 
 "显示行号
 set number
-" relativenumber {{{
-set relativenumber
-" augroup CursorLineOnlyInActiveWindow
-" autocmd!
-" autocmd InsertLeave * setlocal relativenumber
-" autocmd InsertEnter * setlocal norelativenumber
-" autocmd BufEnter * setlocal cursorline
-" autocmd BufLeave * setlocal nocursorline
-" augroup END
-function! NumberToggle()
-    if(&relativenumber == 1)
-        set norelativenumber number
-    else
-        set relativenumber
-    endif
-endfunc
-nnoremap <C-n> :call NumberToggle()<CR>
-" }}}
 
 "indent
 set smartindent

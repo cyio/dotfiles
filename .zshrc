@@ -3,7 +3,7 @@ export ZSH=~/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 DISABLE_LS_COLORS="true"
 eval "$(fasd --init auto)"
-plugins=(git tmux ssh-agent)
+plugins=(git tmux)
 DISABLE_AUTO_UPDATE="true"
 export TERM="xterm-256color"
 source $ZSH/oh-my-zsh.sh
@@ -79,6 +79,7 @@ bindkey -M vicmd v edit-command-line
 # computer config
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+export HOMEBREW_NO_AUTO_UPDATE=1
 
 # added by travis gem
 [ -f /Users/oaker/.travis/travis.sh ] && source /Users/oaker/.travis/travis.sh
