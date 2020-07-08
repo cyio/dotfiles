@@ -49,7 +49,8 @@ nnoremap <S-right> :tabn<CR>
 nnoremap <S-left> :tabp<CR>
 
 " node
-noremap <leader>e <Esc>:AsyncRun -save=1 node --harmony %<CR>
+" noremap <leader>e <Esc>:AsyncRun -save=1 node --harmony %<CR>
+noremap <leader>e <Esc>:AsyncRun -save=1 deno run %<CR>
 
 " C++
 nnoremap <silent> <F9> :AsyncRun -save=1 g++ -O3 "%" -o "%<" -lpthread && $(VIM_FILEDIR)/$(VIM_FILENOEXT) <cr>
@@ -139,6 +140,10 @@ function! MaximizeToggle()
   endif
 endfunction
 " }}}
+if has('nvim')
+  tnoremap <C-w>N <C-\><C-n>
+  tnoremap <C-w>. <C-w>
+endif
 
 " {{{ Search and Completion
 
@@ -183,7 +188,6 @@ let g:jsx_ext_required = 0
 " {{{ ultisnips
 Plug 'SirVer/ultisnips'
 let g:UltiSnipsSnippetsDir='~/UltiSnips'
-" let g:UltiSnipsExpandTrigger="<c-u>"
 let g:UltiSnipsExpandTrigger = "<nop>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
@@ -210,14 +214,16 @@ Plug 'Shougo/context_filetype.vim'
 " Plug 'tyru/caw.vim'
 Plug 'rhysd/vim-gfm-syntax'
 Plug 'ajh17/VimCompletesMe'
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+nnoremap <C-p> :<C-u>FZF<CR>
+Plug 'junegunn/fzf.vim'
 Plug 'ConradIrwin/vim-bracketed-paste'
 if !has("macunix")
     Plug 'lilydjwg/fcitx.vim'
 endif
 Plug 'digitaltoad/vim-pug'
 " {{{ ctrlsf
+" Plug 'dyng/ctrlsf.vim'
 Plug 'dyng/ctrlsf.vim', { 'commit': '0c35992' }
 if executable("rg")
     let g:ctrlsf_ackprg = 'rg'
@@ -430,10 +436,11 @@ command! -nargs=* DD silent! call system(len(split(<q-args>, ' ')) == 0 ?
 " nmap gZ <Plug>ZVKeyDocset
 " }}}
 " {{{ LeaderF
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-let g:Lf_ShortcutF = '<C-P>'
-let g:Lf_UseVersionControlTool = 0
-let g:Lf_CommandMap = {'<C-K>': ['<C-P>']}  " 避免与 tmux prefix 冲突
+" Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+" let g:Lf_ShortcutF = '<C-P>'
+" let g:Lf_UseVersionControlTool = 0
+" let g:Lf_CommandMap = {'<C-K>': ['<C-P>']}  " 避免与 tmux prefix 冲突
+" let g:Lf_ShowDevIcons = 0
 " }}}
 " {{{ supertab 用 tab 键进行插入补全
 " Plug 'ervandew/supertab'
@@ -443,7 +450,19 @@ let g:Lf_CommandMap = {'<C-K>': ['<C-P>']}  " 避免与 tmux prefix 冲突
 " Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})},
     \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'vue', 'yaml', 'html', 'jsx', 'tsx'] }
-" Remap keys for gotos
+" CoC extensions
+let g:coc_global_extensions = ['coc-tsserver', 'coc-json']
+
+" Add CoC Prettier if prettier is installed
+" if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  " let g:coc_global_extensions += ['coc-prettier']
+" endif
+
+" Add CoC ESLint if ESLint is installed
+" if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  " let g:coc_global_extensions += ['coc-eslint']
+" endif
+" GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -467,13 +486,15 @@ function! s:show_documentation()
   endif
 endfunction
 
+" snippets
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
+let g:coc_snippet_prev = '<c-l>' " 跟 tmux prefix 有冲突，改之
 
 " Improve the completion experience not work?
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" }}}
+"}}}
 Plug 'paroxayte/vwm.vim'
 let s:vimdiff = {
       \  'name': 'vimdiff',
@@ -556,7 +577,9 @@ Plug 'voldikss/vim-translate-me'
 let g:vtm_default_mapping = 0
 let g:vtm_default_to_lang = 'en'
 " }}}
+Plug 'heavenshell/vim-jsdoc'
 Plug 'rhysd/git-messenger.vim'
+" Plug 'lvht/mru' " 查看最近使用的文件列表
 " Plug 'airblade/vim-gitgutter'
 " Plug 'jreybert/vimagit'
 
@@ -583,6 +606,7 @@ let g:PaperColor_Theme_Options = {
 " autocmd BufWritePre,TextChanged,InsertLeave *.js :normal gggqG
 
 " }}}
+"
 
 " {{{ File / Explorer
 set bsdir=buffer " 设定文件浏览器目录为当前目录

@@ -1,4 +1,5 @@
 # public config
+# ulimit -Sn 4096
 export ZSH=~/.oh-my-zsh
 ZSH_THEME="robbyrussell"
 DISABLE_LS_COLORS="true"

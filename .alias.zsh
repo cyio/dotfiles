@@ -11,6 +11,7 @@ alias hig='history|grep'
 alias goo='proxychains googler -l zh --colors bjdxxy' 
 alias typ='/usr/bin/open -a typora'
 alias h2p='pbpaste|html2jade --bodyless -|pbcopy'
+alias sck="pbpaste | sed 's/sck.aixuexi.com:8000\/api/39.97.186.200:8094/g' | pbcopy"
 # alias vim="nvim"
 # mosh
 alias spc='mosh oaker@192.168.1.143'
