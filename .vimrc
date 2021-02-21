@@ -61,7 +61,7 @@ nnoremap <leader>t :tabnew<CR>
 " sudo
 cmap w!! %!sudo tee > /dev/null % 
 " save
-nnoremap <leader>w :w<CR>
+" nnoremap <leader>w :w<CR>
 " copy paste
 " nmap <Leader>p :set paste<CR>"+]p:set nopaste<CR>
 " nmap <Leader>P :set paste<CR>"+]P:set nopaste<CR>
@@ -118,6 +118,7 @@ imap <C-A> <C-C><c-p>
 " edit note index file
 nnoremap <leader>ww :e ~/Projects/worknotes/src/index.md<cr>
 nnoremap <leader>wb :e ~/Projects/Personal/cyio/docs/catalog.md<cr>
+nnoremap <leader>wn :exe 'e life/'.strftime("%F.md")<cr>
 
 " 切换最大化窗口，不丢失布局
 nnoremap <C-W>O :call MaximizeToggle()<CR>
@@ -330,7 +331,6 @@ let g:tagbar_type_go = {
 " }}}
 " Plug 'vim-scripts/xml.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -355,8 +355,8 @@ Plug 'vim-scripts/wildfire.vim'
 " let g:indent_guides_guide_size=1
 ":nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 " }}}
-" {{{ indentline 
-Plug 'Yggdroot/indentLine'
+" {{{ work indentline 
+" Plug 'Yggdroot/indentLine'
 " map <leader>il :IndentLinesToggle<CR>
 " let g:indentLine_char = '┊'
 " let g:indentLine_enabled = 1
@@ -378,7 +378,7 @@ Plug 'Yggdroot/indentLine'
 "Plug 'Valloric/YouCompleteMe'
 " Plug 'maksimr/vim-jsbeautify', { 'for': 'javascript' }
 Plug 'othree/html5.vim'
-Plug 'hail2u/vim-css3-syntax'
+" Plug 'hail2u/vim-css3-syntax'
 " {{{ vim-prettier
 Plug 'prettier/vim-prettier', {
 	\ 'do': 'yarn install',
@@ -390,6 +390,7 @@ let g:prettier#config#semi = 'false'
 let g:prettier#exec_cmd_async = 1
 let g:prettier#autoformat = 0
 let g:prettier#config#single_quote = 'true'
+let g:prettier#config#print_width = '80'
 " autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql PrettierAsync
 " }}}
 " Plug 'othree/javascript-libraries-syntax.vim'
@@ -412,6 +413,7 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_conceal_code_blocks = 0
 let g:vim_markdown_fenced_languages = ['js=javascript', 'css=scss']
 Plug 'mzlogin/vim-markdown-toc', { 'for': 'markdown' }
+" Plug 'skanehira/preview-markdown.vim'
 Plug 'irrationalistic/vim-tasks'
 " {{{ devdocs.io
 Plug 'rhysd/devdocs.vim'
@@ -448,7 +450,7 @@ command! -nargs=* DD silent! call system(len(split(<q-args>, ' ')) == 0 ?
 " }}}
 " {{{ coc
 " Plug 'neoclide/coc.nvim', {'do': 'yarn install'}
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install({'tag':1})},
+Plug 'neoclide/coc.nvim', {'branch': 'release',
     \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'vue', 'yaml', 'html', 'jsx', 'tsx'] }
 " CoC extensions
 let g:coc_global_extensions = ['coc-tsserver', 'coc-json']
@@ -473,7 +475,7 @@ vmap <leader>a  <Plug>(coc-codeaction-selected)
 " Remap for do codeAction of current line
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Fix autofix problem of current line
-nmap <leader>qf  <Plug>(coc-fix-current)
+nmap <leader>fc  <Plug>(coc-fix-current)
 
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -556,7 +558,9 @@ let s:bot_panel = {
       \  }
 
 let g:vwm#layouts = [ s:vimdiff, s:frame, s:bot_panel ]
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+
+Plug 'cyio/markdown-preview.nvim', { 'branch': 'feat-sidebar-toc',  'do': 'cd app & yarn install'  }
+let g:mkdp_auto_close = 0
 
 " {{{ ale lint
 " Plug 'w0rp/ale'
@@ -572,29 +576,61 @@ Plug 'junegunn/goyo.vim'
 
 Plug 'junegunn/goyo.vim'
 Plug 'coot/vim-term'
-" {{{ vim-translate-me
-Plug 'voldikss/vim-translate-me'
+" {{{ vim-translator
+" 默认将结果显示在状态栏 W 窗口 R 替换 X 剪贴板
+" 局限性：可视模式，W R 命令不可用
+Plug 'voldikss/vim-translator'
 let g:vtm_default_mapping = 0
 let g:vtm_default_to_lang = 'en'
+let g:translator_default_engines = ['google', 'bing']
+nmap <silent> <Leader>w <Plug>TranslateW
 " }}}
 Plug 'heavenshell/vim-jsdoc'
 Plug 'rhysd/git-messenger.vim'
+" {{{ vimspector
+" Plug 'puremourning/vimspector'
+" let g:vimspector_enable_mappings = 'HUMAN'
+" }}}
 " Plug 'lvht/mru' " 查看最近使用的文件列表
 " Plug 'airblade/vim-gitgutter'
 " Plug 'jreybert/vimagit'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'morhetz/gruvbox'
 
 call plug#end()
 filetype plugin indent on     " required!
  " End of plug configuration
 
+" let g:onedark_terminal_italics=1
+" colorscheme onedark
+" colorscheme codedark
 
-colorscheme PaperColor
-autocmd VimEnter,SessionLoadPost * :colorscheme PaperColor
+" let g:colors_name = get(g:, 'colors_name', 'default')
+" autocmd FileType markdown colorscheme onedark
+" let s:saved_colorscheme = g:colors_name
+" function! s:check_colorscheme_on_bufenter() abort
+    " if &ft == 'markdown' && g:colors_name != 'PaperColor'
+        " let s:saved_colorscheme = g:colors_name
+        " colorscheme PaperColor
+        " autocmd VimEnter,SessionLoadPost * :colorscheme PaperColor
+    " elseif &ft != 'markdown' && g:colors_name == 'PaperColor'
+        " exe 'colorscheme '.s:saved_colorscheme
+    " endif
+" endfunction
+
+" augroup MarkdownColorScheme
+    " au!
+    " au BufEnter * call s:check_colorscheme_on_bufenter()
+" augroup END
+
+colorscheme papercolor
+" colorscheme gruvbox
+autocmd VimEnter,SessionLoadPost * :colorscheme papercolor
+  " \         'color00' : ['#080808', '232'], " more dark
 let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default.dark': {
   \       'override' : {
-  \         'color00' : ['#080808', '232'],
   \       }
   \     }
   \   }
@@ -620,6 +656,7 @@ map <leader>cd :lcd %:h<CR>
 if has('unix')
   if has('mac')
     map <leader>tp :!/usr/bin/open -a typora %<CR>
+    map <leader>tc :!/usr/bin/open -a "Visual Studio Code" %<CR>
   else
     map <leader>tp :!/usr/bin/xdg-open %<CR>
   endif
@@ -722,13 +759,18 @@ endtry
 " {{{ Syntax highlighting
 
 syntax on
-" set background=dark
+" #1e1e1e
+set background=dark
+" set background=light
 set t_Co=256
 set nobackup
 set nowritebackup
 set noswapfile
 " Better display for messages
 set cmdheight=2
+set relativenumber
+" 让vim可以自动识别DOS和UNIX文本文件格式, 使用vim打开DOS文本文件就不会显示^M字符了
+" set fileformats=dos,unix
 
 highlight LineNr term=bold cterm=NONE ctermfg=DarkGrey ctermbg=NONE gui=NONE guifg=DarkGrey guibg=NONE
 nmap <Leader>pj :setlocal filetype=javascript<CR>
@@ -742,4 +784,7 @@ autocmd BufNewFile,BufRead *.wpy set filetype=html
 " }}}
 
 set exrc " allow local vimrc
+set secure
 " set shell=/bin/zsh
+
+set smartcase
